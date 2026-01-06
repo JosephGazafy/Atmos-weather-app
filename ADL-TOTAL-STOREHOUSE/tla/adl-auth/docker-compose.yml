@@ -1,0 +1,113 @@
+version: '3'
+services:
+ 
+  nginx:
+    restart: always
+    build:
+      context: nginx
+      args:
+        - HOSTNAME=${HOSTNAME}
+    ports:
+      - 80:80
+      - 443:443
+    container_name: docker_nginx
+    volumes:
+      - ./nginx/letsencrypt:/usr/share/nginx/html
+      - ./certbot/etc:/usr/share/keys
+    networks:
+      - public
+
+  certbot:
+    container_name: 'docker_certbot'
+    image: certbot/certbot
+    volumes:
+      - ./keys:/var/lib/letsencrypt
+      - ./nginx/letsencrypt:/data/letsencrypt
+      - ./certbot/etc:/etc/letsencrypt
+      - ./certbot/log:/var/log/letsencrypt
+    networks:
+      - public
+    depends_on:
+      - nginx
+
+  postgres:
+    restart: always
+    container_name: docker_postgres
+    build: 
+      context: postgres
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment: 
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    networks:
+      - public
+
+  keycloak:
+    restart: always
+    container_name: docker_keycloak
+    build: 
+      context: keycloak
+    ports:
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:9990:9990"
+    links:
+      - postgres:docker_postgres
+    environment:
+      PROXY_ADDRESS_FORWARDING: "true"
+      KEYCLOAK_ADMIN: ${KEYCLOAK_USER}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_PASSWORD}
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      KC_DB_USERNAME: ${POSTGRES_USER}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_DB_SCHEMA: public
+      KC_HOSTNAME: ${HOSTNAME}
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
+      KC_METRICS_ENABLED: "true"
+      KC_PROXY: "edge"
+      # KC_FEATURES: token-exchange
+    networks:
+      - public
+
+  # service-registry:
+  #   restart: always
+  #   container_name: docker_registry
+  #   build: 
+  #     context: service-registry
+  #   ports:
+  #     - "8085"
+  #   environment:
+  #     API_SECRET: ${API_SECRET}
+  #     KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+  #     KEYCLOAK_CLIENT: ${KEYCLOAK_CLIENT}
+  #     KEYCLOAK_ENDPOINT: ${KEYCLOAK_ENDPOINT}
+  #   volumes:
+  #     - ./service-registry/data:/usr/src/app/scripts/util/data
+  #   networks:
+  #     - public
+
+  # keycloak-db-helper:
+  #   restart: always
+  #   container_name: docker_helper
+  #   build: 
+  #     context: keycloak-db-helper
+  #   environment:
+  #     API_SECRET: ${API_SECRET}
+  #     KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+  #     KEYCLOAK_CLIENT: ${KEYCLOAK_CLIENT}
+  #     KEYCLOAK_ENDPOINT: ${KEYCLOAK_ENDPOINT}
+  #     POSTGRES_DB: ${POSTGRES_DB}
+  #     POSTGRES_USER: ${POSTGRES_USER}
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  #     POSTGRES_ENDPOINT: postgres
+  #   networks:
+  #     - public
+
+networks:
+  public: 
+    driver: bridge

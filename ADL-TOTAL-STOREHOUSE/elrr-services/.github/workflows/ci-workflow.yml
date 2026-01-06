@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:  
+  build-push:
+    # Install/build maven dependencies
+    runs-on: ubuntu-latest    
+
+    steps:
+
+    - name: Set up archived Oracle JDK 17.0.3.1
+      uses: oracle-actions/setup-java@v1
+      with:
+        website: oracle.com
+        release: 17
+        version: 17.0.3.1
+    
+    # Entities Repo (must be built before services)
+    - name: Checkout tools repo
+      uses: actions/checkout@v4
+      with:
+        repository: adlnet/elrr-services-entities
+        path: elrrserviceentities
+        ####IMPORTANT - THIS IS THE ENTITIES TAG WE WANT TO BUILD WITH
+        ref: v1.0.1
+    - name: Maven build Entities
+      run: |
+       cd elrrserviceentities
+       echo "Maven build Entities"
+       mvn clean install
+    
+    # Services repo
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        path: elrrservices
+    - name: Maven build
+      run: |
+       cd elrrservices
+       echo "Maven build Services"
+       mvn clean install

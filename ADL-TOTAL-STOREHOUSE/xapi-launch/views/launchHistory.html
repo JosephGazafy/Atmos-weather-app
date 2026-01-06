@@ -1,0 +1,76 @@
+<!-- Main jumbotron for a primary marketing message or call to action -->
+{{>header}}
+<script type="text/javascript">
+    setTimeout(function()
+    {
+       window.location.reload();
+    },10000)
+
+</script>
+<style type="text/css">
+    .card
+    {
+        margin:3em;
+    }
+    td
+    {
+        padding:1em 1em !important
+    }
+
+</style>
+<div class="container" style="margin-top:4em"></div>
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <table class="table ">
+            <tr style ="font-weight: bolder;">
+                <td>App</td>
+                <td class='visible-lg '>URL</td>
+                <td>User</td>
+                <td class='visible-lg '>uuid</td>
+                <td>Status</td>
+                <td class='visible-lg '>Date</td>
+                 <td class='visible-lg '>Media</td>
+                <td class='visible-lg '>Termination</td>
+               
+                <td>Actions</td>
+            </tr>
+            {{#results}}
+            <tr class = "card" style="display: table-row;">
+                <td><a href = "/content/searchid/{{contentKey}}">{{contentTitle}}</a></td>
+                <td class='visible-lg '>{{contentURL}}</td>
+                <td>{{email}}</td>
+                <td class='visible-lg '>{{uuid}}</td>
+                <td>{{state}}</td>
+                <td class='visible-lg '>{{createdTime}}</td>
+                <td class='visible-lg '> <a href="/media/search/{{mediaKey}}">{{media.title}}</a></td>
+                <td class='visible-lg '>{{termination.description}}{{^termination.description}}No Termination Code{{/termination.description}}</td>
+                <td>
+                    <div class="btn-group" role="group">
+                    <button class="btn btn-raised btn-primary dropdown-toggle" type="button" id="dropdownMenu{{launchKey}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="sr-only">Toggle Dropdown</span>...
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{launchKey}}">
+                        <li><a href = "/content/searchid/{{contentKey}}">View App Record</a></li>
+                        <li><a href = "/content/{{contentKey}}/xapi">View Context Activity</a></li>
+                        {{#owned}}
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/users/launches/{{uuid}}/delete">Remove</a></li>
+                        <li><a href="/launches/{{uuid}}">View DB Record</a></li>
+                        <li><a href="/launches/{{uuid}}/xapi">View xAPI Record</a></li>
+                        <li><a href="/results/{{uuid}}">View Results</a></li>
+                        {{/owned}}
+                    </ul>
+                </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan="9"></td>
+            </tr>
+            {{/results}}
+        </table>
+    </div>
+    <hr> {{>footer}}
+</div>
+<!-- /container -->

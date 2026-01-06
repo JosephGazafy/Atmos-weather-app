@@ -1,0 +1,6 @@
+[submodule "elrrserviceentities"]
+	path = elrrserviceentities
+	url = https://github.com/US-ELRR/elrrserviceentities.git
+[submodule "elrraggregator"]
+	path = elrraggregator
+	url = https://github.com/US-ELRR/elrraggregator.git

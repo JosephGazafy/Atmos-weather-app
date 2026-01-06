@@ -1,0 +1,12 @@
+[submodule "xAPI-Spec"]
+	path = xAPI-Spec
+	url = https://github.com/adlnet/xAPI-Spec.git
+[submodule "profile-server"]
+	path = profile-server
+	url = https://github.com/adlnet/profile-server.git
+[submodule "CATAPULT"]
+	path = CATAPULT
+	url = https://github.com/adlnet/CATAPULT.git
+[submodule "lrs-conformance-test-suite"]
+	path = lrs-conformance-test-suite
+	url = https://github.com/adlnet/lrs-conformance-test-suite.git

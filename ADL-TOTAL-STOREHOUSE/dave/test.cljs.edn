@@ -1,0 +1,3 @@
+^{:cljs-devtools false}
+{:main com.yetanalytics.dave.test-runner
+ :target :nodejs}

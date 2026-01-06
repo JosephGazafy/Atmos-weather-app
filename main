@@ -1,0 +1,8 @@
+cd ~/Atmos
+# Ensure Go is installed
+pkg install golang -y
+# Compile main.go into the 'main' executable
+go build -o main main.go
+# Grant execution rights
+chmod +x main
+

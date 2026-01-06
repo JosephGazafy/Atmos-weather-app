@@ -1,0 +1,406 @@
+@import './variables.scss';
+@import './framework.scss';
+
+textarea {
+    resize: vertical !important;
+}
+.import-text-textarea {
+    max-height: 75vh !important; 
+    resize: vertical !important;
+} 
+#import {
+    #import-from-url,
+    #import-from-server,
+    #import-from-text,
+    #import-from-file {
+        min-height: 100vh;
+    }
+    .parent-object:not(.lode__thing-editing) {
+        position: sticky;
+        background-color: $white;
+        top: 0px;
+        z-index: 9;
+        width: 100%;
+        transition: height .1s;
+        position: -webkit-sticky;
+        .lode__Framework {
+            display: flex;
+            margin: 0rem 1rem;
+            // border-bottom: solid 1px rgba($dark, .5);
+        }
+    }
+    .parent-object.scrolled {
+        z-index: 8;
+        height: 56px;
+        overflow: hidden;
+        .tag {
+            display: none;
+        }
+    }
+    .lode__Competency,
+    .lode__Concept,
+    .lode__ConceptScheme,
+    .lode__Framework {
+        .hierarchy-item__buttons {
+            display: flex;
+            visibility: hidden;
+            position: absolute;
+            right: 0;
+            top: 0px;
+        }
+        .edit-button, .comment-button, .handle-button {
+            visibility: hidden;
+            margin: 0rem .25rem;
+        }
+    }
+
+    .lode__Competency:hover {
+        .lode__thing-heading .lode__Property {
+            color: $primary !important;
+        }
+        .hierarchy-item__buttons {
+            visibility: visible;
+        }
+        .edit-button, .comment-button, .handle-button {
+            visibility: visible;
+        }
+    }
+    .import-by-text-form {
+        position: sticky;
+        top: 40px;
+    }
+    .import-container {
+        min-height: 100vh;
+    }
+    .import-information {
+        height: 100vh;;
+        position: sticky;
+        position: -webkit-sticky; /* Safari */
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-color: $light;
+        position: absolute;
+ 
+    }
+}
+ul.processing-list {
+    height: 100%;
+    width: 100%;
+    height: 400px;
+    ul {
+        padding-left: 24px;
+        li {
+            display: block;
+            animation: pulse 2s infinite;
+            height: 24px;
+            margin-top: 16px;
+            width: 100%;
+            background-color: grey;
+        }
+    }
+}
+// Displayed until hierarchy is done loading 
+.busy-hierarchy {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    .busy-hierarchy__list-item {
+        background-color: $light;
+        animation: pulse 2s infinite;
+        width: 100%;
+        height: 48px;
+        padding:8px 8px 0px 8px;
+        margin: 8px;
+        color: transparent;
+    }
+    ul li {
+        height: 24px;
+        margin: 8px 8px 8px 24px;
+        background-color: $light;
+        animation: pulse 4s infinite;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        background-color: rgba($dark, .5);
+    }
+    100% {
+        background-color: rgba($dark, .3);
+    }
+}
+
+@keyframes pulse {
+    0% {
+      background-color: $light;
+    }
+    100% {
+      background-color: rgba($light, .5);
+    }
+  }
+
+
+#import{
+    .special-property {
+        iframe {
+            margin-top: .25rem;
+        }
+        .special-property-text {
+            padding-left: .5rem;
+            vertical-align: center;
+        }
+    }
+        .drag-file-area {
+            width:100%;
+            height: 100%;
+            display:block;
+            border: 2px dashed $white;
+            border-radius:1rem;
+            padding:100px;
+            margin: auto;
+    
+        }
+        #drop-area {
+            height: 300px;
+            margin: 0px;
+            padding: 0px;
+            width: auto;
+            .column {
+                height: auto;
+            }
+        }
+        #add-node-section:hover .add-new-node {
+            visibility: visible;
+            height: 24px;
+        }
+        .add-new-node {
+            padding-left: 2.5rem;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            hr  {
+                width: 100%;
+                display: block;
+                height: 2px;
+                padding-left: -1px;
+                margin-left: auto;
+                margin-right: auto;
+                border-width: 1px;
+                background-color: $primary !important;
+                color: $black !important;
+                border: 1px dashed $primary !important;
+            }
+        }
+        .add-new-node:hover {
+            visibility: visible !important;
+        }
+       
+    
+    .import-tab {
+        margin-top: -40px;
+        height: 120px;
+        color: $dark;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        justify-content: center;
+        align-items: center;
+        font-size: .7rem;
+        background-color: transparent;
+        a { 
+            color: $dark;
+        }
+        div {
+            color: $dark;
+        }
+        
+    }
+    .is-active-tab{
+        color: $link;
+        a {
+            height: 140px;
+            width: 140px;
+            padding-top: 40px;
+            border-radius: 100px;
+            color: $secondary;
+            z-index: 2;
+        }
+        a::before {
+            height: 140px;
+            margin-top: -50px;
+            border-radius: 50%;
+            width: 140px;
+            transform: translateX(50%, 50%);
+            z-index: -2;
+            position: absolute;
+            background-color: $light;
+            content: '';
+        }
+
+        div {
+            color: $secondary;
+            font-weight: 500;
+        }
+    }
+    .import-tab:hover {
+        a {
+            color: $primary;
+        }
+        div {
+            color: $primary;
+        }
+    }
+    .menu-list_list-item {
+        list-style-type: none;
+        padding: .5rem 0em;
+    }
+    .menu-list_list-subitem {
+        list-style-type: none;
+        padding: .25rem 0em;
+    }
+    .buttons {
+        margin-right: 0em !important;
+        margin: 0em !important;
+        a:first {
+            padding-left: 0em !important;
+            margin-left: 0em !important;
+        }
+        .button {
+            margin-bottom: 0rem;
+        }
+        :last-child {
+            margin-bottom: 0;
+        };
+    }
+    .content-body-wrapper {
+        padding: .5em 0em;
+        .content-body {
+            padding-top: .25rem;
+            :last {
+                padding-bottom: 1em;
+            }
+        }
+    }
+    .menu-list a {
+        padding: .5em .5em .5em 0em;
+    }
+    .disabled {
+        >* {
+            cursor: not-allowed;
+        }
+        div {
+            color: rgba($dark, .5);
+        }
+    }
+    .tile {
+        border-radius: 1rem;
+    }
+    // framework title is a separate component from hierarchy
+    .lode__thing.framework-title {
+            padding: .5rem 0rem;
+            ul {
+                padding: .25rem;
+            }
+            label {
+                span {
+                    padding: 0rem .25rem;
+                    width: auto;
+                    font-size: $size-6;
+                    font-weight: 600;
+                    color: rgba($dark, .6);
+                }
+            }
+            .lode-type, .top-actions, .bottom-actions, label {
+                display: none;
+            }
+            .lode-Property-ul {
+                font-size: 1.2rem;
+            }
+            .lode-Property.editing {
+                .lode-Property-ul {
+                    display: flex;
+                    flex-wrap: wrap;
+                    width: 100%;
+                    .property-value {
+                        width: 100%;
+                        display: flex;
+                        .property-string-span, .input-span {
+                            width: 100%;
+                            .input-field {
+                                width: 100%;
+                                textarea, input {
+                                    height: 30px;
+                                    padding: 4px 8px;
+                                    width: calc(100%);
+                                    border-radius: 2px;
+                                    margin-right: 8px;
+                                }
+                            }
+                        }
+                        .input-span {
+                            padding-right: .25rem;
+                        }
+                        .editing-property-buttons {
+                            width: 64px;
+                        }
+                    }
+                    .is-add-button {
+                        display: none;
+                    }
+                }
+                
+            }
+    }
+    .import-flex {
+        height: calc(100vh - 66px);
+        .import-bottom-flex {
+        }
+        .import-top-flex {
+        }
+    }
+    #import-actions {
+
+    }
+    .import-light, .import-preview {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        .lode__thing .lode__Framework {
+            min-height: 40px;
+        }
+        // on related competencies, hide buttons to edit competency
+        .related-competency, .related-competency.editing-competency {
+            width: 100%;
+            .top-actions{
+                display: none !important;
+            }
+           
+        }
+    } 
+    .import-light {
+        checkbox {
+            display: none;
+        }
+        .button {
+        }
+        #check-radio-column {
+            display: none;
+        }
+        #check-radio-all-column {
+            display: none;
+        }
+    }
+    .import-details {
+        border: 2px solid rgba($black, .5);
+        border-radius: 1rem;
+        margin: 0rem 1rem;
+    }
+}
+
+.constrain-column {
+    max-width: 100%;
+    min-width: 0;
+}

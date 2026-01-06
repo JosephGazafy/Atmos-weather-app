@@ -1,0 +1,10 @@
+cd ~/Atmos && ./autopilot.sh
+
+alias atmos='cd ~/Atmos && ./sovereign.sh autopilot'
+
+chmod +x ~/Atmos/*.sh 2>/dev/null
+# Check if the engine is already running to avoid duplicate processes
+if ! pgrep -f "atmos_api.py" > /dev/null; then
+    ./start_stack.sh
+fi
+

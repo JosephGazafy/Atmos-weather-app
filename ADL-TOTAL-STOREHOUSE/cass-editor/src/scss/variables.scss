@@ -1,0 +1,93 @@
+
+@function tint($color, $percentage) {
+    @return mix(white, $color, $percentage);
+}
+@function shade($color, $percentage) {
+    @return mix(black, $color, $percentage);
+  }
+
+// generic variables need to update before import 
+$cass-secondary:#68C8DB;
+$cass-secondary-up: tint($cass-secondary, 50%);
+$cass-secondary-down: shade($cass-secondary, 50%);
+
+$cass-primary:#4F99A8;
+$cass-primary-down: tint($cass-primary, 50%);
+$cass-primary-up: shade($cass-primary, 50%);
+
+$cass-error: #D74C44;
+$cass-success: #68C8DB;
+$cass-highlight: #EDAC5F;
+
+$cass-black: #47585C;
+$cass-medium: tint($cass-black, 80%);
+$cass-light: tint($cass-black, 96%);
+$cass-lightest:tint($cass-black, 97%);
+
+$family-primary: 'Assistant',
+'sans-serif';
+$family-secondary: 'Roboto Condensed',
+'sans-serif';
+
+$highlight: #feffb045;
+$black: $cass-black;
+$white: #ffffff;
+$light: $cass-light;
+$primary: $cass-primary;
+$secondary: $cass-secondary;
+$link: $cass-highlight;
+$info: $black;
+$success: $cass-success;
+$warning: $cass-highlight;
+$danger: $cass-error;
+
+$dark:$cass-black;
+$text: #222222;
+
+
+$size-1: 2rem;
+$size-2: 1.75rem;
+$size-3: 1.5rem;
+$size-4: 1.25rem;
+$size-5: 1rem;
+$size-6: .85rem;
+$size-7: .7rem;
+
+
+$weight-normal: 400;
+$family-code: $family-primary;
+$background-white: $white;
+$background-light: $light;
+$background-medium: tint($dark, 80%);
+$background: $white;
+$text-strong: $cass-black;
+$weight-bold: 600;
+$link-hover: $primary;
+$text-hover: $primary;
+$title-size: 2.2rem !important;
+$subtitle-weight: 600;
+$title-color: $black;
+$title-family: $family-secondary;
+$title-size: $size-1;
+$subtitle-color: $black;
+$subtitle-family: $family-secondary;
+
+
+$one-dp: 0 1px 2px 0 rgba(0,0,0,0.10);
+$two-dp: 0 4px 8px 0 rgba(0,0,0,0.10);
+$three-dp: 	0 6px 12px 0 rgba(0,0,0,0.10);
+$four-dp: 	0 8px 16px 0 rgba(0,0,0,0.10);
+
+$border-radius: 4px;
+
+$gap: 6px;
+
+.has-background-lightest {
+    background-color:  $cass-lightest;
+}
+.has-text-medium {
+    color: $cass-medium;
+}
+.has-background-medium {
+    background-color: $cass-medium;
+}

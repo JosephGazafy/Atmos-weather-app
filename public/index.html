@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATMOS-ATLAS // REMOTE COCKPIT</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #020617; color: #f8fafc; font-family: 'Inter', sans-serif; }
+    .stat-card { background: #1e293b; border: 1px solid #334155; padding: 1rem; border-radius: 0.5rem; }
+    .glow-cyan { text-shadow: 0 0 10px #22d3ee; }
+  </style>
+</head>
+<body class="p-4 md:p-8 flex flex-col items-center">
+  <div class="max-w-4xl w-full space-y-6">
+    <header class="text-center">
+      <h1 class="text-3xl font-bold tracking-tighter glow-cyan">ATMOS-ATLAS // REMOTE VIEW</h1>
+      <p class="text-slate-500 text-sm">SOVEREIGN OS v9.5 | INDEP. MO</p>
+    </header>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="stat-card">
+        <div class="text-xs text-slate-400 uppercase">Logic Depth</div>
+        <div id="depth" class="text-2xl font-bold text-cyan-400">--</div>
+      </div>
+      <div class="stat-card">
+        <div class="text-xs text-slate-400 uppercase">Swarm Nodes</div>
+        <div id="swarm" class="text-2xl font-bold text-green-400">--</div>
+      </div>
+      <div class="stat-card">
+        <div class="text-xs text-slate-400 uppercase">MIS Score</div>
+        <div id="mis" class="text-2xl font-bold text-yellow-400">--</div>
+      </div>
+      <div class="stat-card">
+        <div class="text-xs text-slate-400 uppercase">Liveness</div>
+        <div id="liveness" class="text-2xl font-bold text-emerald-400">--</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="text-xs text-slate-400 uppercase mb-2">Kinetic Event Stream</div>
+      <div id="log" class="font-mono text-sm text-yellow-200">Waiting for data...</div>
+    </div>
+
+    <div class="text-center text-xs text-slate-600">
+      Syncing via Hyperlattice @ <span id="ts">--:--:--</span>
+    </div>
+  </div>
+
+  <script>
+    async function updateHUD() {
+      try {
+        const res = await fetch('stats.json');
+        const data = await res.json();
+        document.getElementById('depth').innerText = data.depth.toFixed(1);
+        document.getElementById('swarm').innerText = data.swarm;
+        document.getElementById('mis').innerText = data.mis.toFixed(2);
+        document.getElementById('liveness').innerText = data.liveness;
+        document.getElementById('log').innerText = data.log;
+        document.getElementById('ts').innerText = data.ts;
+      } catch (e) { console.log("Stream offline..."); }
+    }
+    setInterval(updateHUD, 1000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="5">
+    <title>ATMOS | Resync Dashboard</title>
+    <style>
+        body { background: #000; color: #00ff41; font-family: 'Courier New', monospace; text-align: center; padding: 20px; }
+        .container { border: 1px solid #00ff41; padding: 20px; border-radius: 10px; max-width: 480px; margin: auto; background: #050505; }
+        .resync-btn { background: #00ff41; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; margin-top: 20px; width: 100%; border-radius: 5px; }
+        .resync-btn:active { transform: scale(0.98); opacity: 0.8; }
+        .bar-container { background: #111; height: 10px; margin: 10px 0; border-radius: 5px; overflow: hidden; }
+        .bar-fill { height: 100%; transition: width 1s ease; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="font-size: 0.8rem; border-bottom: 1px solid #222; padding-bottom: 10px; margin-bottom: 20px;">🌑 SOVEREIGN RESYNC ENGINE 🌑</div>
+        
+        <div style="text-align: left; font-size: 0.7rem;">LOCAL AUTHENTICITY</div>
+        <div class="bar-container"><div class="bar-fill" style="width: 84.6%; background: #00ff41;"></div></div>
+        
+        <div style="text-align: left; font-size: 0.7rem;">LATTICE PARITY</div>
+        <div class="bar-container"><div class="bar-fill" style="width: 84.10%; background: #00d4ff;"></div></div>
+
+        <button class="resync-btn" onclick="triggerResync()">INITIATE TRUTH-DUMP RESYNC</button>
+
+        <div style="margin-top: 20px; font-size: 1.1rem; color: #fff;">PRINCIPAL: $65,737.61</div>
+        <div style="font-size: 0.6rem; color: #444; margin-top: 10px;">ANCHOR: INDEPENDENCE, MO | v47.3</div>
+    </div>
+
+    <script>
+        function triggerResync() {
+            const btn = document.querySelector('.resync-btn');
+            btn.innerHTML = "FETCHING LATTICE TRUTH...";
+            btn.style.background = "#fff";
+            
+            // Simulation of back-end alignment
+            setTimeout(() => {
+                btn.innerHTML = "RESYNC COMPLETE: PARITY RESTORED";
+                btn.style.background = "#00ff41";
+                // In production, this calls a fetch script to update health_score.cfg
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

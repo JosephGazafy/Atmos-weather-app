@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+  <meta name="description" content="An organized list of ADL's resources available on github">
+  <meta name="author" content="ADL">
+  <link rel="icon" href="favicon.ico">
+
+  <title>adlnet.github.io</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+    ga('create', 'UA-65518229-1', 'auto');
+    ga('send', 'pageview');
+  
+  </script>
+</head>
+
+<body>
+
+  <section class="container">
+
+    <div class="page-header">
+      <h1 class="text-primary"><i class="fa fa-archive"></i> adlnet.github.io</h1>
+      <h3 class="text-muted">An organized list of ADL's resources available on github</h3>
+    </div>
+
+    <script id="group-list-template" type="x-handlebars-template">​{{#listDataGroups this}}{{this}}{{/listDataGroups}}</script>
+
+    <ul id="filter" class="pagination"></ul>
+
+    <script id="item-template" type="x-handlebars-template">
+        {{#each this}}
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 item" data-groups='{{#arrayToString this.tags}}{{this}}{{/arrayToString}}'>
+              <div class="box">
+                  <div class="box-icon box-icon-{{color}}">
+                      <span class="fa fa-4x {{icon}}"></span>
+                  </div>
+                  <div class="info">
+                      <h4 class="text-center">{{title}}</h4>
+                      <div class="panel-google-plus-tags">
+                          {{#listTags this.tags}}{{this}}{{/listTags}}
+                      </div>
+                      <p>{{{description}}}</p>
+                      {{#if this.link_ex}}<a href="{{link_ex}}" target="_blank" class="btn"><i class="fa fa-external-link"></i> {{link_ex_title}}</a>{{/if}}
+                      {{#if this.link_ref}}<a href="{{link_ref}}" target="_blank" class="btn readme"><i class="fa fa-file-text"></i> {{link_ref_title}}</a>{{/if}}
+                      {{#if this.link_gh}}<a href="{{link_gh}}" target="_blank" class="btn github"><i class="fa fa-github"></i> Github</a>{{/if}}
+                  </div>
+              </div>
+          </div>
+        {{/each}}
+    </script>
+
+    <div id="grid">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 shuffle__sizer"></div>
+    </div>
+
+  </section>
+
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/lib/handlebars-v3.0.0.js"></script>
+  <script type="text/javascript" src="js/lib/jquery.shuffle.modernizr.min.js"></script>
+  <script type="text/javascript" src="js/lib/xapiwrapper.min.js"></script>
+  <script type="text/javascript" src="js/scripts.js"></script>
+  <script type="text/javascript">
+    // wrapper wrapper
+    var ww = true;
+    if (ww) {
+      var uid = Math.random().toString(36).substr(2, 5);
+
+      var conf = {
+         "endpoint" : "https://lrs.adlnet.gov/xapi/",
+         "auth" : "Basic " + toBase64('tom:1234'),
+      };
+      ADL.XAPIWrapper.changeConfig(conf);
+
+      document.onclick = function(event) {
+        var el = event.target;
+        if (el.nodeName == "A") {
+          var stmt = new ADL.XAPIStatement(
+            { mbox: 'mailto:' + uid + '@adlnet.github.io', name: uid },
+            { id: 'http://adlnet.gov/expapi/verbs/interacted', display: { 'en-US': 'clicked' } },
+            el.href
+          );
+          stmt.addParentActivity(location.href);
+          ADL.XAPIWrapper.sendStatement(stmt, function(){});
+        }
+      };
+      
+      window.onload = function() {
+        var stmt = new ADL.XAPIStatement(
+          { mbox: 'mailto:' + uid + '@adlnet.github.io', name: uid },
+          { id: 'http://adlnet.gov/expapi/verbs/initialized', display: { 'en-US': 'initialized' } },
+          'http://adlnet.github.io'
+        );
+        if (document.referrer) {
+          stmt.addGroupingActivity(document.referrer);
+        }
+        ADL.XAPIWrapper.sendStatement(stmt, function(){});
+      };
+    }
+  </script>
+</body>
+</html>

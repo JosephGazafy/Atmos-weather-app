@@ -1,0 +1,11 @@
+Hibernate: create type LearningStatus as enum ('ATTEMPTED','COMPLETED','PASSED','FAILED')
+Hibernate: create cast (varchar as LearningStatus) with inout as implicit
+Hibernate: create cast (LearningStatus as varchar) with inout as implicit
+Hibernate: alter table if exists elrr.learning_record alter column record_status set data type elrr.learning_status
+Hibernate: alter table if exists elrr.person alter column height set data type numeric(38,2)
+Hibernate: alter table if exists elrr.person alter column weight set data type varchar(255)
+Hibernate: alter table if exists elrr.person add column birthplace_id uuid
+Hibernate: alter table if exists elrr.person_qualification add column type varchar(31) not null
+Hibernate: alter table if exists elrr.person_qualification add column id uuid not null
+Hibernate: alter table if exists elrr.person_qualification add column has_record boolean
+Hibernate: alter table if exists elrr.person add constraint FKstyyjd4n7orgih2300pjl9tcj foreign key (birthplace_id) references elrr.location

@@ -1,0 +1,53 @@
+name: CD
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up archived Oracle JDK 17.0.3.1
+      uses: oracle-actions/setup-java@v1
+      with:
+        website: oracle.com
+        release: 17
+        version: 17.0.3.1 
+    - name: Build Bundle
+      run: mvn clean install -Dmaven.test.skip=true
+
+    - name: Compress Bundle
+      run: | # Get only the correct jar into the bundle
+        cd target
+        find . -type f -regex ".*[0-9]\.jar$" -print0 | xargs -0 zip ../elrr-externalservices.zip
+
+    - name: Archive Bundle (Tag Pushes)
+      uses: actions/upload-artifact@v4
+      with:
+        name: elrr-externalservices-artifact-${{ github.ref_name }}
+        path: elrr-externalservices.zip
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Download Bundle Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: elrr-externalservices-artifact-${{ github.ref_name }}
+
+    - name: Craft Draft Release
+      uses: softprops/action-gh-release@v2
+      with:
+        name: Release ${{github.ref_name}}
+        tag_name: ${{github.ref_name}}
+        body: "## Release Notes"
+        draft: true
+        files: elrr-externalservices.zip

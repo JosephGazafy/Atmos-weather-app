@@ -1,0 +1,102 @@
+version: '3'
+services:
+
+  # Database for LRS statements
+  postgres:
+    restart: always
+    image: library/postgres:9.5
+    ports:
+      - "127.0.0.1:5432:5432"
+    container_name: docker_postgres
+    environment: 
+      POSTGRES_DB: lrs
+      POSTGRES_USER: lrs_owner
+      POSTGRES_PASSWORD: lrs_password
+    # Persist this data between sessions
+    volumes:
+      - ./docker/data/postgres:/var/lib/postgresql/data
+    networks:
+      - public
+
+  # Required for activity metadata
+  redis:
+    restart: always
+    image: redis:7
+    container_name: docker_redis
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - ./docker/data/redis:/data
+    networks:
+      - public
+  
+  # Required for activity metadata
+  amqp:
+    restart: always
+    image: "rabbitmq:3-management"
+    hostname: "rabbit1"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    container_name: docker_rabbit
+    ports:
+      - "127.0.0.1:15672:15672"
+      - "127.0.0.1:5672:5672"
+    networks:
+      - public
+  
+  # The actual ADL LRS service run through uWSGI
+  lrs:
+    restart: always
+    build: 
+      context: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    container_name: docker_lrs
+    links:
+      - postgres
+      - amqp
+    networks:
+      - public
+    volumes:
+      - ./docker/data/lrs/logs:/opt/lrs/logs
+  
+  # nginx proxy used to handle LRS traffic
+  nginx:
+    restart: always
+    build: 
+      context: docker/nginx
+      args:
+        HOSTNAME: "${HOSTNAME}"
+    ports:
+      - "80:80"
+      - "443:443"
+    container_name: docker_nginx
+    volumes:
+      - ./docker/nginx/letsencrypt:/usr/share/nginx/html
+      - ./docker/certbot/etc:/usr/share/keys
+    links:
+      - lrs
+    networks:
+      - public
+
+  # Certbot for SSL automation
+  #
+  certbot:
+    container_name: 'docker_certbot'
+    image: certbot/certbot
+    volumes:
+      - ./docker/keys:/var/lib/letsencrypt
+      - ./docker/nginx/letsencrypt:/data/letsencrypt
+      - ./docker/certbot/etc:/etc/letsencrypt
+      - ./docker/certbot/log:/var/log/letsencrypt
+    depends_on:
+      - nginx
+    networks:
+      - public
+
+networks:
+  public: 
+    driver: bridge

@@ -1,0 +1,15 @@
+<project name="AggregatorCleanup" basedir=".">
+
+    <target name="copy-aggregator-jar">
+        <copy file="elrraggregator/target/elrraggregator-0.0.1-SNAPSHOT.jar" todir="target/"/>
+    </target>
+
+    <target name="copy-aggregator-code-analysis" unless="skipTests">
+        <mkdir dir="target/site"/>
+        <mkdir dir="target/site/jacoco"/>
+        <copy todir="target/site/jacoco">
+            <fileset dir="report-aggregate/target/site/jacoco-aggregate" includes="**/*" />
+        </copy>
+    </target>
+
+</project>

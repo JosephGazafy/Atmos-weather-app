@@ -1,0 +1,20 @@
+====================================================
+      ATMOS CORE v3.0 | REFERENCE CARD
+====================================================
+[ COMMANDS ]
+./sovereign.sh autopilot : Full startup
+./sovereign.sh status    : Check background services
+./sovereign.sh tunnel    : P2P Encrypted Comms
+./sovereign.sh shadow    : Lock system (Stealth)
+./sovereign.sh update    : Sync from GitHub
+
+[ DAEMONS ]
+scuttle.sh               : 24h Auto-destruct logs
+alert_sentinel.sh        : Live breach monitoring
+morning_report.sh        : Daily 8am health check
+
+[ RECOVERY ]
+chmod 700 * : Unlock locked files
+cd ~/Atmos               : Return to project root
+====================================================
+

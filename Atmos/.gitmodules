@@ -1,0 +1,3 @@
+[submodule "vendor/Nemotron"]
+	path = vendor/Nemotron
+	url = https://github.com/NVIDIA-NeMo/Nemotron.git

@@ -1,0 +1,24 @@
+.DS_Store
+/target
+/classes
+/checkouts
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/.cpcache
+/.lein-*
+/.nrepl-history
+/.nrepl-port
+.hgignore
+.hg/
+*.md.tmp
+*.log
+.rebel_readline_history
+
+# VSCode
+.calva/
+.clj-kondo/
+.lsp/
+.vscode/
+

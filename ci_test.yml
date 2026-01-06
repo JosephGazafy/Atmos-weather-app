@@ -1,0 +1,43 @@
+name: Constitutional Engine CI
+
+on: [push, pull_request]
+
+jobs:
+  test-stack:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.25.4'
+
+    - name: Install Dependencies
+      run: |
+        pip install flask requests nltk PyDictionary
+        python -c "import nltk; nltk.download('punkt'); nltk.download('averaged_perceptron_tagger')"
+
+    - name: Build Go Bridge
+      run: |
+        CGO_ENABLED=0 go build -o bridge main.go
+
+    - name: Run Connectivity & Stress Test
+      run: |
+        # Start Python Engine and Go Bridge in the background
+        python atmos_api.py &
+        ./bridge &
+        
+        # Give them a few seconds to initialize
+        sleep 5
+        
+        # Execute the Stress Test
+        python stress_test.py
+

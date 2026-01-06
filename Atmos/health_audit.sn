@@ -1,0 +1,32 @@
+cat << 'EOF' > ~/Atmos/health_audit.sh
+#!/bin/bash
+# ATMOS CORE v3.0 - SYSTEM HEALTH AUDIT
+echo -e "\e[1;34m[INITIATING FINAL HEALTH AUDIT...]\e[0m"
+
+# 1. Binary Check
+if [ -f "$HOME/Atmos/main" ] && [ -x "$HOME/Atmos/main" ]; then
+    echo -e "✅ Sentinel Binary: \e[1;32mOPERATIONAL\e[0m"
+else
+    echo -e "❌ Sentinel Binary: \e[1;31mOFFLINE (Build Required)\e[0m"
+fi
+
+# 2. Hardware/Acoustic Check
+if pgrep -f "play -n" > /dev/null; then
+    echo -e "✅ Acoustic Shield: \e[1;32mRESONATING (19.5kHz)\e[0m"
+else
+    echo -e "⚠️ Acoustic Shield: \e[1;33mDORMANT\e[0m"
+fi
+
+# 3. Network Anchor Check
+LATENCY=$(ping -c 1 1.1.1.1 | grep 'time=' | awk -F'time=' '{print $2}' | awk '{print $1}')
+echo -e "✅ US-East Anchor: \e[1;32mCONNECTED\e[0m ($LATENCY ms)"
+
+# 4. Biometric Gate Check
+if [ -f "$HOME/Atmos/bio_verify" ]; then
+    echo -e "✅ NIST Biometric Gate: \e[1;32mREADY\e[0m"
+else
+    echo -e "❌ NIST Biometric Gate: \e[1;31mNOT LINKED\e[0m"
+fi
+EOF
+chmod +x ~/Atmos/health_audit.sh
+

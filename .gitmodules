@@ -1,0 +1,282 @@
+[submodule "vendor/Nemotron"]
+	path = vendor/Nemotron
+	url = https://github.com/NVIDIA-NeMo/Nemotron.git
+[submodule "ADL-TOTAL-STOREHOUSE/LR-Data"]
+	path = ADL-TOTAL-STOREHOUSE/LR-Data
+	url = https://github.com/adlnet/LR-Data.git
+[submodule "ADL-TOTAL-STOREHOUSE/ADL_LRS"]
+	path = ADL-TOTAL-STOREHOUSE/ADL_LRS
+	url = https://github.com/adlnet/ADL_LRS.git
+[submodule "ADL-TOTAL-STOREHOUSE/RUSSEL"]
+	path = ADL-TOTAL-STOREHOUSE/RUSSEL
+	url = https://github.com/adlnet/RUSSEL.git
+[submodule "ADL-TOTAL-STOREHOUSE/experienceapi_client_examples"]
+	path = ADL-TOTAL-STOREHOUSE/experienceapi_client_examples
+	url = https://github.com/adlnet/experienceapi_client_examples.git
+[submodule "ADL-TOTAL-STOREHOUSE/xAPI-Spec"]
+	path = ADL-TOTAL-STOREHOUSE/xAPI-Spec
+	url = https://github.com/adlnet/xAPI-Spec.git
+[submodule "ADL-TOTAL-STOREHOUSE/xAPIWrapper"]
+	path = ADL-TOTAL-STOREHOUSE/xAPIWrapper
+	url = https://github.com/adlnet/xAPIWrapper.git
+[submodule "ADL-TOTAL-STOREHOUSE/DECALS"]
+	path = ADL-TOTAL-STOREHOUSE/DECALS
+	url = https://github.com/adlnet/DECALS.git
+[submodule "ADL-TOTAL-STOREHOUSE/xAPI-Dashboard"]
+	path = ADL-TOTAL-STOREHOUSE/xAPI-Dashboard
+	url = https://github.com/adlnet/xAPI-Dashboard.git
+[submodule "ADL-TOTAL-STOREHOUSE/jxapi"]
+	path = ADL-TOTAL-STOREHOUSE/jxapi
+	url = https://github.com/adlnet/jxapi.git
+[submodule "ADL-TOTAL-STOREHOUSE/xapi-jqm"]
+	path = ADL-TOTAL-STOREHOUSE/xapi-jqm
+	url = https://github.com/adlnet/xapi-jqm.git
+[submodule "ADL-TOTAL-STOREHOUSE/SCORM-to-xAPI-Wrapper"]
+	path = ADL-TOTAL-STOREHOUSE/SCORM-to-xAPI-Wrapper
+	url = https://github.com/adlnet/SCORM-to-xAPI-Wrapper.git
+[submodule "ADL-TOTAL-STOREHOUSE/lrs-conformance-test-suite"]
+	path = ADL-TOTAL-STOREHOUSE/lrs-conformance-test-suite
+	url = https://github.com/adlnet/lrs-conformance-test-suite.git
+[submodule "ADL-TOTAL-STOREHOUSE/xAPI-SCORM-Profile"]
+	path = ADL-TOTAL-STOREHOUSE/xAPI-SCORM-Profile
+	url = https://github.com/adlnet/xAPI-SCORM-Profile.git
+[submodule "ADL-TOTAL-STOREHOUSE/xAPI-Android-Roses"]
+	path = ADL-TOTAL-STOREHOUSE/xAPI-Android-Roses
+	url = https://github.com/adlnet/xAPI-Android-Roses.git
+[submodule "ADL-TOTAL-STOREHOUSE/xapi-lab"]
+	path = ADL-TOTAL-STOREHOUSE/xapi-lab
+	url = https://github.com/adlnet/xapi-lab.git
+[submodule "ADL-TOTAL-STOREHOUSE/xapi-statement-viewer"]
+	path = ADL-TOTAL-STOREHOUSE/xapi-statement-viewer
+	url = https://github.com/adlnet/xapi-statement-viewer.git
+[submodule "ADL-TOTAL-STOREHOUSE/SCORM-to-TLA-Roadmap"]
+	path = ADL-TOTAL-STOREHOUSE/SCORM-to-TLA-Roadmap
+	url = https://github.com/adlnet/SCORM-to-TLA-Roadmap.git
+[submodule "ADL-TOTAL-STOREHOUSE/adlnet.github.io"]
+	path = ADL-TOTAL-STOREHOUSE/adlnet.github.io
+	url = https://github.com/adlnet/adlnet.github.io.git
+[submodule "ADL-TOTAL-STOREHOUSE/SCORM-2004-4ed-Test-Suite"]
+	path = ADL-TOTAL-STOREHOUSE/SCORM-2004-4ed-Test-Suite
+	url = https://github.com/adlnet/SCORM-2004-4ed-Test-Suite.git
+[submodule "ADL-TOTAL-STOREHOUSE/SCORM-2004-4ed-SampleRTE"]
+	path = ADL-TOTAL-STOREHOUSE/SCORM-2004-4ed-SampleRTE
+	url = https://github.com/adlnet/SCORM-2004-4ed-SampleRTE.git
+[submodule "ADL-TOTAL-STOREHOUSE/xapi-youtube"]
+	path = ADL-TOTAL-STOREHOUSE/xapi-youtube
+	url = https://github.com/adlnet/xapi-youtube.git
+[submodule "ADL-TOTAL-STOREHOUSE/Starting-from-SCORM-A-Developers-Guide"]
+	path = ADL-TOTAL-STOREHOUSE/Starting-from-SCORM-A-Developers-Guide
+	url = https://github.com/adlnet/Starting-from-SCORM-A-Developers-Guide.git
+[submodule "ADL-TOTAL-STOREHOUSE/Intro-to-Developing-Web-based-xAPI-Content"]
+	path = ADL-TOTAL-STOREHOUSE/Intro-to-Developing-Web-based-xAPI-Content
+	url = https://github.com/adlnet/Intro-to-Developing-Web-based-xAPI-Content.git
+[submodule "ADL-TOTAL-STOREHOUSE/xapi-launch"]
+	path = ADL-TOTAL-STOREHOUSE/xapi-launch
+	url = https://github.com/adlnet/xapi-launch.git
+[submodule "ADL-TOTAL-STOREHOUSE/companion-specification-for-xapi-vocabularies"]
+	path = ADL-TOTAL-STOREHOUSE/companion-specification-for-xapi-vocabularies
+	url = https://github.com/adlnet/companion-specification-for-xapi-vocabularies.git
+[submodule "ADL-TOTAL-STOREHOUSE/experience-xapi-vocabulary-primer"]
+	path = ADL-TOTAL-STOREHOUSE/experience-xapi-vocabulary-primer
+	url = https://github.com/adlnet/experience-xapi-vocabulary-primer.git
+[submodule "ADL-TOTAL-STOREHOUSE/Intro-to-xAPI-Data-Visualization"]
+	path = ADL-TOTAL-STOREHOUSE/Intro-to-xAPI-Data-Visualization
+	url = https://github.com/adlnet/Intro-to-xAPI-Data-Visualization.git
+[submodule "ADL-TOTAL-STOREHOUSE/xAPI-Workshop"]
+	path = ADL-TOTAL-STOREHOUSE/xAPI-Workshop
+	url = https://github.com/adlnet/xAPI-Workshop.git
+[submodule "ADL-TOTAL-STOREHOUSE/xapi-lrs-conformance-requirements"]
+	path = ADL-TOTAL-STOREHOUSE/xapi-lrs-conformance-requirements
+	url = https://github.com/adlnet/xapi-lrs-conformance-requirements.git
+[submodule "ADL-TOTAL-STOREHOUSE/Intro-to-xAPI-Video-Experiences"]
+	path = ADL-TOTAL-STOREHOUSE/Intro-to-xAPI-Video-Experiences
+	url = https://github.com/adlnet/Intro-to-xAPI-Video-Experiences.git
+[submodule "ADL-TOTAL-STOREHOUSE/xapi-profiles"]
+	path = ADL-TOTAL-STOREHOUSE/xapi-profiles
+	url = https://github.com/adlnet/xapi-profiles.git
+[submodule "ADL-TOTAL-STOREHOUSE/xapi-ontology"]
+	path = ADL-TOTAL-STOREHOUSE/xapi-ontology
+	url = https://github.com/adlnet/xapi-ontology.git
+[submodule "ADL-TOTAL-STOREHOUSE/xAPI-Charts"]
+	path = ADL-TOTAL-STOREHOUSE/xAPI-Charts
+	url = https://github.com/adlnet/xAPI-Charts.git
+[submodule "ADL-TOTAL-STOREHOUSE/xAPI-Profile-Matching"]
+	path = ADL-TOTAL-STOREHOUSE/xAPI-Profile-Matching
+	url = https://github.com/adlnet/xAPI-Profile-Matching.git
+[submodule "ADL-TOTAL-STOREHOUSE/xapi-authored-profiles"]
+	path = ADL-TOTAL-STOREHOUSE/xapi-authored-profiles
+	url = https://github.com/adlnet/xapi-authored-profiles.git
+[submodule "ADL-TOTAL-STOREHOUSE/cmi5-Client-Library"]
+	path = ADL-TOTAL-STOREHOUSE/cmi5-Client-Library
+	url = https://github.com/adlnet/cmi5-Client-Library.git
+[submodule "ADL-TOTAL-STOREHOUSE/flash-finder"]
+	path = ADL-TOTAL-STOREHOUSE/flash-finder
+	url = https://github.com/adlnet/flash-finder.git
+[submodule "ADL-TOTAL-STOREHOUSE/imi-cost-calc"]
+	path = ADL-TOTAL-STOREHOUSE/imi-cost-calc
+	url = https://github.com/adlnet/imi-cost-calc.git
+[submodule "ADL-TOTAL-STOREHOUSE/dave"]
+	path = ADL-TOTAL-STOREHOUSE/dave
+	url = https://github.com/adlnet/dave.git
+[submodule "ADL-TOTAL-STOREHOUSE/MasterObjectModel"]
+	path = ADL-TOTAL-STOREHOUSE/MasterObjectModel
+	url = https://github.com/adlnet/MasterObjectModel.git
+[submodule "ADL-TOTAL-STOREHOUSE/tla-kafka-cluster"]
+	path = ADL-TOTAL-STOREHOUSE/tla-kafka-cluster
+	url = https://github.com/adlnet/tla-kafka-cluster.git
+[submodule "ADL-TOTAL-STOREHOUSE/Unity-xAPI-Wrapper"]
+	path = ADL-TOTAL-STOREHOUSE/Unity-xAPI-Wrapper
+	url = https://github.com/adlnet/Unity-xAPI-Wrapper.git
+[submodule "ADL-TOTAL-STOREHOUSE/2019-tla-lem"]
+	path = ADL-TOTAL-STOREHOUSE/2019-tla-lem
+	url = https://github.com/adlnet/2019-tla-lem.git
+[submodule "ADL-TOTAL-STOREHOUSE/xi-lite"]
+	path = ADL-TOTAL-STOREHOUSE/xi-lite
+	url = https://github.com/adlnet/xi-lite.git
+[submodule "ADL-TOTAL-STOREHOUSE/ecc-openlxp-xss"]
+	path = ADL-TOTAL-STOREHOUSE/ecc-openlxp-xss
+	url = https://github.com/adlnet/ecc-openlxp-xss.git
+[submodule "ADL-TOTAL-STOREHOUSE/ecc-openlxp-xia"]
+	path = ADL-TOTAL-STOREHOUSE/ecc-openlxp-xia
+	url = https://github.com/adlnet/ecc-openlxp-xia.git
+[submodule "ADL-TOTAL-STOREHOUSE/ecc-openlxp-xis"]
+	path = ADL-TOTAL-STOREHOUSE/ecc-openlxp-xis
+	url = https://github.com/adlnet/ecc-openlxp-xis.git
+[submodule "ADL-TOTAL-STOREHOUSE/ecc-openlxp-xse"]
+	path = ADL-TOTAL-STOREHOUSE/ecc-openlxp-xse
+	url = https://github.com/adlnet/ecc-openlxp-xse.git
+[submodule "ADL-TOTAL-STOREHOUSE/ecc-openlxp-xds"]
+	path = ADL-TOTAL-STOREHOUSE/ecc-openlxp-xds
+	url = https://github.com/adlnet/ecc-openlxp-xds.git
+[submodule "ADL-TOTAL-STOREHOUSE/ecc-openlxp-xms"]
+	path = ADL-TOTAL-STOREHOUSE/ecc-openlxp-xms
+	url = https://github.com/adlnet/ecc-openlxp-xms.git
+[submodule "ADL-TOTAL-STOREHOUSE/xAPI-Kafka-Viewer"]
+	path = ADL-TOTAL-STOREHOUSE/xAPI-Kafka-Viewer
+	url = https://github.com/adlnet/xAPI-Kafka-Viewer.git
+[submodule "ADL-TOTAL-STOREHOUSE/github-webhook-observer-2021"]
+	path = ADL-TOTAL-STOREHOUSE/github-webhook-observer-2021
+	url = https://github.com/adlnet/github-webhook-observer-2021.git
+[submodule "ADL-TOTAL-STOREHOUSE/cass-editor"]
+	path = ADL-TOTAL-STOREHOUSE/cass-editor
+	url = https://github.com/adlnet/cass-editor.git
+[submodule "ADL-TOTAL-STOREHOUSE/ecc-openlxp-xds-ui"]
+	path = ADL-TOTAL-STOREHOUSE/ecc-openlxp-xds-ui
+	url = https://github.com/adlnet/ecc-openlxp-xds-ui.git
+[submodule "ADL-TOTAL-STOREHOUSE/tla"]
+	path = ADL-TOTAL-STOREHOUSE/tla
+	url = https://github.com/adlnet/tla.git
+[submodule "ADL-TOTAL-STOREHOUSE/ecc-openlxp-xms-ui"]
+	path = ADL-TOTAL-STOREHOUSE/ecc-openlxp-xms-ui
+	url = https://github.com/adlnet/ecc-openlxp-xms-ui.git
+[submodule "ADL-TOTAL-STOREHOUSE/auto-ssl"]
+	path = ADL-TOTAL-STOREHOUSE/auto-ssl
+	url = https://github.com/adlnet/auto-ssl.git
+[submodule "ADL-TOTAL-STOREHOUSE/elrr-services"]
+	path = ADL-TOTAL-STOREHOUSE/elrr-services
+	url = https://github.com/adlnet/elrr-services.git
+[submodule "ADL-TOTAL-STOREHOUSE/elrr-external-services"]
+	path = ADL-TOTAL-STOREHOUSE/elrr-external-services
+	url = https://github.com/adlnet/elrr-external-services.git
+[submodule "ADL-TOTAL-STOREHOUSE/CATAPULT"]
+	path = ADL-TOTAL-STOREHOUSE/CATAPULT
+	url = https://github.com/adlnet/CATAPULT.git
+[submodule "ADL-TOTAL-STOREHOUSE/elrr-datasync"]
+	path = ADL-TOTAL-STOREHOUSE/elrr-datasync
+	url = https://github.com/adlnet/elrr-datasync.git
+[submodule "ADL-TOTAL-STOREHOUSE/elrr-aggregator"]
+	path = ADL-TOTAL-STOREHOUSE/elrr-aggregator
+	url = https://github.com/adlnet/elrr-aggregator.git
+[submodule "ADL-TOTAL-STOREHOUSE/datasim"]
+	path = ADL-TOTAL-STOREHOUSE/datasim
+	url = https://github.com/adlnet/datasim.git
+[submodule "ADL-TOTAL-STOREHOUSE/profile-server"]
+	path = ADL-TOTAL-STOREHOUSE/profile-server
+	url = https://github.com/adlnet/profile-server.git
+[submodule "ADL-TOTAL-STOREHOUSE/learninglocker-docker"]
+	path = ADL-TOTAL-STOREHOUSE/learninglocker-docker
+	url = https://github.com/adlnet/learninglocker-docker.git
+[submodule "ADL-TOTAL-STOREHOUSE/mcdp7-pebl"]
+	path = ADL-TOTAL-STOREHOUSE/mcdp7-pebl
+	url = https://github.com/adlnet/mcdp7-pebl.git
+[submodule "ADL-TOTAL-STOREHOUSE/perls"]
+	path = ADL-TOTAL-STOREHOUSE/perls
+	url = https://github.com/adlnet/perls.git
+[submodule "ADL-TOTAL-STOREHOUSE/perls-app"]
+	path = ADL-TOTAL-STOREHOUSE/perls-app
+	url = https://github.com/adlnet/perls-app.git
+[submodule "ADL-TOTAL-STOREHOUSE/Moodle-mod_cmi5launch"]
+	path = ADL-TOTAL-STOREHOUSE/Moodle-mod_cmi5launch
+	url = https://github.com/adlnet/Moodle-mod_cmi5launch.git
+[submodule "ADL-TOTAL-STOREHOUSE/.github"]
+	path = ADL-TOTAL-STOREHOUSE/.github
+	url = https://github.com/adlnet/.github.git
+[submodule "ADL-TOTAL-STOREHOUSE/moodle-jwt-auth"]
+	path = ADL-TOTAL-STOREHOUSE/moodle-jwt-auth
+	url = https://github.com/adlnet/moodle-jwt-auth.git
+[submodule "ADL-TOTAL-STOREHOUSE/mmt-ia-ace"]
+	path = ADL-TOTAL-STOREHOUSE/mmt-ia-ace
+	url = https://github.com/adlnet/mmt-ia-ace.git
+[submodule "ADL-TOTAL-STOREHOUSE/datasim-ui-legacy"]
+	path = ADL-TOTAL-STOREHOUSE/datasim-ui-legacy
+	url = https://github.com/adlnet/datasim-ui-legacy.git
+[submodule "ADL-TOTAL-STOREHOUSE/mmt-backend"]
+	path = ADL-TOTAL-STOREHOUSE/mmt-backend
+	url = https://github.com/adlnet/mmt-backend.git
+[submodule "ADL-TOTAL-STOREHOUSE/dote-xia-coursera"]
+	path = ADL-TOTAL-STOREHOUSE/dote-xia-coursera
+	url = https://github.com/adlnet/dote-xia-coursera.git
+[submodule "ADL-TOTAL-STOREHOUSE/p1-auth"]
+	path = ADL-TOTAL-STOREHOUSE/p1-auth
+	url = https://github.com/adlnet/p1-auth.git
+[submodule "ADL-TOTAL-STOREHOUSE/ecc-openlxp-P1-notification"]
+	path = ADL-TOTAL-STOREHOUSE/ecc-openlxp-P1-notification
+	url = https://github.com/adlnet/ecc-openlxp-P1-notification.git
+[submodule "ADL-TOTAL-STOREHOUSE/moodle-logstore_xapi"]
+	path = ADL-TOTAL-STOREHOUSE/moodle-logstore_xapi
+	url = https://github.com/adlnet/moodle-logstore_xapi.git
+[submodule "ADL-TOTAL-STOREHOUSE/adl-moodle"]
+	path = ADL-TOTAL-STOREHOUSE/adl-moodle
+	url = https://github.com/adlnet/adl-moodle.git
+[submodule "ADL-TOTAL-STOREHOUSE/edlm-portal-xia-jobs"]
+	path = ADL-TOTAL-STOREHOUSE/edlm-portal-xia-jobs
+	url = https://github.com/adlnet/edlm-portal-xia-jobs.git
+[submodule "ADL-TOTAL-STOREHOUSE/LDSS-XSS"]
+	path = ADL-TOTAL-STOREHOUSE/LDSS-XSS
+	url = https://github.com/adlnet/LDSS-XSS.git
+[submodule "ADL-TOTAL-STOREHOUSE/elrr-dockercompose"]
+	path = ADL-TOTAL-STOREHOUSE/elrr-dockercompose
+	url = https://github.com/adlnet/elrr-dockercompose.git
+[submodule "ADL-TOTAL-STOREHOUSE/mmt-portal"]
+	path = ADL-TOTAL-STOREHOUSE/mmt-portal
+	url = https://github.com/adlnet/mmt-portal.git
+[submodule "ADL-TOTAL-STOREHOUSE/elrr-services-entities"]
+	path = ADL-TOTAL-STOREHOUSE/elrr-services-entities
+	url = https://github.com/adlnet/elrr-services-entities.git
+[submodule "ADL-TOTAL-STOREHOUSE/elrr-services-parent"]
+	path = ADL-TOTAL-STOREHOUSE/elrr-services-parent
+	url = https://github.com/adlnet/elrr-services-parent.git
+[submodule "ADL-TOTAL-STOREHOUSE/elrr-aggregator-parent"]
+	path = ADL-TOTAL-STOREHOUSE/elrr-aggregator-parent
+	url = https://github.com/adlnet/elrr-aggregator-parent.git
+[submodule "ADL-TOTAL-STOREHOUSE/eccr-cis"]
+	path = ADL-TOTAL-STOREHOUSE/eccr-cis
+	url = https://github.com/adlnet/eccr-cis.git
+[submodule "ADL-TOTAL-STOREHOUSE/eccr-cms"]
+	path = ADL-TOTAL-STOREHOUSE/eccr-cms
+	url = https://github.com/adlnet/eccr-cms.git
+[submodule "ADL-TOTAL-STOREHOUSE/eccr-cds"]
+	path = ADL-TOTAL-STOREHOUSE/eccr-cds
+	url = https://github.com/adlnet/eccr-cds.git
+[submodule "ADL-TOTAL-STOREHOUSE/eccr-cms-ui"]
+	path = ADL-TOTAL-STOREHOUSE/eccr-cms-ui
+	url = https://github.com/adlnet/eccr-cms-ui.git
+[submodule "ADL-TOTAL-STOREHOUSE/GSA-Android-Strata/BioZen-Android"]
+	path = ADL-TOTAL-STOREHOUSE/GSA-Android-Strata/BioZen-Android
+	url = https://github.com/t2health/BioZen-Android.git
+[submodule "ADL-TOTAL-STOREHOUSE/GSA-Android-Strata/Android_DOLDataSDK"]
+	path = ADL-TOTAL-STOREHOUSE/GSA-Android-Strata/Android_DOLDataSDK
+	url = https://github.com/USDepartmentofLabor/Android_DOLDataSDK.git
+[submodule "ADL-TOTAL-STOREHOUSE/GSA-Android-Strata/Calculate-Heat-Index-Java"]
+	path = ADL-TOTAL-STOREHOUSE/GSA-Android-Strata/Calculate-Heat-Index-Java
+	url = https://github.com/USDepartmentofLabor/Calculate-Heat-Index-Java.git

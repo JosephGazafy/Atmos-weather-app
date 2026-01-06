@@ -1,0 +1,149 @@
+# Copyright 2020 Rustici Software
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+version: "3"
+services:
+
+  nginx:
+    restart: always
+    build: 
+      context: nginx
+      args:
+        HOSTNAME: "${HOSTNAME}"
+    ports:
+      - "80:80"
+      - "443:443"
+    container_name: docker_nginx
+    volumes:
+      - ./nginx/letsencrypt:/usr/share/nginx/html
+      - ./certbot/etc:/usr/share/keys
+    networks:
+      - public
+
+  certbot:
+    container_name: 'docker_certbot'
+    image: certbot/certbot
+    volumes:
+      - ./keys:/var/lib/letsencrypt
+      - ./nginx/letsencrypt:/data/letsencrypt
+      - ./certbot/etc:/etc/letsencrypt
+      - ./certbot/log:/var/log/letsencrypt
+    depends_on:
+      - nginx
+    networks:
+      - public
+
+  webservice:
+    build: .
+    container_name: docker_cts
+    restart: always
+    ports:
+      - 127.0.0.1:3399:3399
+    depends_on:
+      - rdbms
+    volumes:
+      - ./service/index.js:/usr/src/app/index.js:ro
+      - ./service/knexfile.js:/usr/src/app/knexfile.js:ro
+      - ./service/plugins:/usr/src/app/plugins:ro
+      - ./service/lib:/usr/src/app/lib:ro
+      - ./migrations:/usr/src/app/migrations:ro
+      - ./seeds:/usr/src/app/seeds:ro
+    environment:
+      - HOSTNAME
+      - DB_HOST
+      - DB_NAME
+      - DB_USERNAME
+      - DB_PASSWORD
+      # - DATABASE_USER=catapult
+      # - DATABASE_USER_PASSWORD=quartz
+      # - DATABASE_NAME=catapult_cts
+      - PLAYER_BASE_URL
+      - PLAYER_KEY
+      - PLAYER_SECRET
+      - NODE_TLS_REJECT_UNAUTHORIZED
+      - LRS_ENDPOINT
+      - LRS_USERNAME
+      - LRS_PASSWORD
+      - LRS_XAPI_VERSION
+      - CTS_SESSION_COOKIE_PASSWORD
+    networks:
+      - public  
+
+  player:
+    build: ../player
+    container_name: docker_player
+    restart: always
+    depends_on:
+      - rdbms
+    ports:
+      - 127.0.0.1:3398:3398
+    volumes:
+      - ../player/service/index.js:/usr/src/app/index.js:ro
+      - ../player/service/knexfile.js:/usr/src/app/knexfile.js:ro
+      - ../player/service/plugins:/usr/src/app/plugins:ro
+      - ../player/service/lib:/usr/src/app/lib:ro
+      - ../player/migrations:/usr/src/app/migrations:ro
+      - ../player/seeds:/usr/src/app/seeds:ro
+      - catapult-player-data:/usr/src/app/var/content
+    environment:
+      - HOSTNAME
+      - DATABASE_USER=catapult
+      - DATABASE_USER_PASSWORD=quartz
+      - DATABASE_NAME=catapult_player
+      - CONTENT_URL=${PLAYER_CONTENT_URL}
+      - LRS_ENDPOINT
+      - LRS_USERNAME
+      - LRS_PASSWORD
+      - LRS_XAPI_VERSION
+      - TOKEN_SECRET=${PLAYER_TOKEN_SECRET}
+      - API_KEY=${PLAYER_KEY}
+      - API_SECRET=${PLAYER_SECRET}
+      - PLAYER_API_ROOT=${PLAYER_ROOT_PATH}
+      - PLAYER_STANDALONE_LAUNCH_URL_BASE
+    networks:
+      - public
+
+  rdbms:
+    image: mysql:8.0.17
+    container_name: mysql
+    restart: always
+    volumes:
+      - catapult-cts-data:/var/lib/mysql
+      - ./init_db.sh:/docker-entrypoint-initdb.d/init_db.sh:ro
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - DATABASE_USER=catapult
+      - DATABASE_USER_PASSWORD=quartz
+      - DATABASE_NAME=catapult_cts
+      - PLAYER_DATABASE_NAME=catapult_player
+    command: [
+      "mysqld",
+
+      # provide for full UTF-8 support
+      "--character-set-server=utf8mb4",
+      "--collation-server=utf8mb4_unicode_ci",
+
+      # need the following because the mysql.js client lib doesn't yet support
+      # the newer default scheme used in MySQL 8.x
+      "--default-authentication-plugin=mysql_native_password"
+    ]
+    networks:
+      - public
+
+volumes:
+  catapult-cts-data:
+  catapult-player-data:
+
+networks:
+  public:
+    driver: bridge

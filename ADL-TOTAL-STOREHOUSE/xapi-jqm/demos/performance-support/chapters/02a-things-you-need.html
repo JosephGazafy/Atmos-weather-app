@@ -1,0 +1,94 @@
+<!DOCTYPE html> 
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>Things You Need - How to Make French Toast - xapi-jqm</title> 
+    
+    <link rel="stylesheet" href="../css/custom-styles.css" />        
+    
+    <!-- Load CDN; if it fails, load the local instance. -->
+    <script src="http://code.j/query.com/jquery-1.10.2.min.js"></script>
+    <script>
+        if (typeof jQuery == 'undefined')
+        {
+            document.write(unescape("%3Cscript src='../js/jquery-1.10.2.min.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+    
+    <!-- Load CDN; if it fails, load the local instance. -->
+    <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+    <script>
+        if(typeof $.mobile == 'undefined')
+        {
+            document.write(unescape("%3Cscript src='../js/jquery.mobile-1.4.2.min.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+
+        function addLocalCSS(){$('<link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.2.min.css" />').appendTo('head')};
+    </script>
+    <link onerror="addLocalCSS()" rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+
+    <script src="../js/xapiwrapper.min.js"></script>
+    <script src="../js/xapi-youtube-statements.js"></script>
+    <script src="../js/verbs.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/functions.js"></script>  
+    <script>
+        $(document).on("pagecreate", function () {
+            $(".selectAll").on("change", function () {
+                var value = $(this).prop("checked");
+                $(this).closest(".ui-controlgroup").find("[type=checkbox]:not(.selectAll)").prop("checked", value).checkboxradio("refresh");
+            });
+        });
+    </script>     
+</head> 
+
+<body data-chapter="02a-things-you-need"> 
+
+<div data-role="page" data-theme="b" id="p1" class="ingredients-menu">
+<div data-role="header" class="fullscreen background" style="background-image:url('../media/toast-large.jpg');" data-img-width="1600" data-img-height="1064">
+    <a href="../index.html" name="home" data-role="button" data-theme="b" data-icon="home" data-transition="slide" data-ajax="false" class="ui-btn-left" courselink="true">Home</a>
+<h1><span class="subline no-ellipses">How to Make French Toast</span></h1>
+    <div data-role="navbar">
+        <ul id="toc-list">
+            <li id="02-checklists">
+                <a href="02-checklists.html" data-ajax="false" class="chapter no-ellipses ui-btn-active ui-state-persist" courselink="true" onclick="chapterLaunched('02-checklists');">Checklists</a>
+            </li>
+            <li id="03-steps">
+                <a href="03-steps.html" data-ajax="false" class="chapter no-ellipses" courselink="true" onclick="chapterLaunched('03-steps');">Steps</a>
+            </li> 
+            <li id="04-video">
+                <a href="04-video.html" data-ajax="false" class="chapter no-ellipses" courselink="true" onclick="chapterLaunched('04-video');">Video</a>
+            </li> 
+            <li id="05-glossary">
+                <a href="05-glossary.html" data-ajax="false" class="chapter no-ellipses" courselink="true" onclick="chapterLaunched('05-glossary');">Glossary</a>
+            </li> 
+        </ul>
+    </div><!-- /navbar -->
+</div><!-- /header -->
+
+    <div data-role="content">    
+        <p>Before getting started, you should make sure you have the equipment and tools to do the job. Check each item once you have confirmed you have it. </p>
+
+    <div role="main" class="ui-content">
+        <form>
+          <div class='ui-fieldcontain'>
+          <div data-role='controlgroup'>
+                <input type='checkbox' class='selectAll' class='custom' id="selectall"><label for="selectall">Check All</label>
+                <input type="checkbox" id="checkbox-x-2a"><label for="checkbox-x-2a">Bowl</label>
+                <input type="checkbox" id="checkbox-x-2b"><label for="checkbox-x-2b">Pan (if using stove)</label>
+                <input type="checkbox" id="checkbox-x-2c"><label for="checkbox-x-2c">Stove or electric pan (your preference)</label>
+                <input type="checkbox" id="checkbox-x-2d"><label for="checkbox-x-2d">Fork or whisk</label>
+                <input type="checkbox" id="checkbox-x-2e"><label for="checkbox-x-2e">Spatula</label>
+                <input type="checkbox" id="checkbox-x-2f"><label for="checkbox-x-2f">Serving Plate</label>                       
+          </div>          
+          </div>
+          <a href="02-checklists.html" data-ajax="false" class="ui-btn ui-btn-active ui-corner-all ui-mini" courselink="true" onclick="setRead('02a-things-you-need','p1','02-checklists');setChapterComplete();">Back</a>
+        </form>
+    </div> <!-- /main ui-content input boxes -->                                      
+    </div><!-- /content -->
+</div><!-- /page things-you-need -->
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+name: Docker CD
+
+on:
+  push:
+    branches: 
+      - dev
+  pull_request:
+    branches: 
+      - main
+      - dev
+    types: [opened, synchronize, reopened]
+
+jobs:
+  code-test:
+    # Kicks off the workflow and prepares Github to run coverage test using a ubuntu-latest container.
+    name: Code Test
+    runs-on: ubuntu-latest
+    env:
+      OS: ubuntu-latest
+      PYTHON: '3.9'
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    # Install dependencies required for tests
+    - name: Install Dependencies
+      run: |
+        yarn install
+
+    # - name: Generate Coverage Report
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+    #   run: |
+    #     echo "Cloning private repository"
+    #     git clone https://openlxp-host:${{ secrets.ACCESS_TOKEN }}@github.com/OpenLXP/openlxp-private.git
+    #     echo "Private repository cloned successfully"
+    #     echo "Copying .env file from openlxp-private to current working directory"
+    #     cp ./openlxp-private/openlxp-xds-ui-env/.env .
+    #     echo "Copied .env file successfully"
+    #     echo "Create openlxp docker network"
+    #     docker network create openlxp
+    #     echo "Docker network successfully created"
+        # yarn
+        # yarn test	--coverage
+        
+  build:
+    # requires dependency from step above
+    needs: code-test
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+    - name: Docker login
+      env:
+       DOCKER_USER: ${{ secrets.DOCKER_USER }}
+       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: |
+       echo "Authenticate to Docker"
+       docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - name: Docker build
+      run: |
+       echo "Start docker build"
+       docker build . -t openlxp/openlxp-xds-ui

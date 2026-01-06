@@ -1,0 +1,487 @@
+@import './variables.scss';
+// required to adjust to side bar open
+#crosswalk.clear-side-bar {
+    .hierarchy-buttons {
+        width: calc(45vw - 150px);
+    }
+}
+#crosswalk {
+    height: calc(100vh);
+    overflow: hidden;
+    background-color: white;
+    .lode__Framework {
+        .lode__name {
+            font-weight: 600;
+            font-family: $family-secondary;
+            font-size: $size-5;
+            .language {
+                display: none;
+            }
+        }
+        .lode__description {
+            display: none;
+        }
+    }
+    .lode__type {
+        display: none;
+    }
+    .fa-tilde:before {
+        font-family: Arial; /* your font family here! */
+        font-weight: bold;
+        font-size: 1.1rem;
+        content: '~';
+    }
+    .hierarchy-buttons {
+        padding-top: 1rem !important;
+        padding-bottom: .25rem !important;
+        background-color: white;
+        padding-top: 0rem !important;
+        z-index: 5;
+        border-bottom: solid 1px black;
+    }
+    .step-container {
+        transform:translateX(0);
+        hr.step_line {
+            border-top: 1px solid $primary;
+            z-index: -3;
+            height: 4px;
+            width: 100%;
+            position: absolute;
+            top: 36px;
+        }
+    }
+    .step-icon__wrapper {
+        padding: .25rem .5rem;
+    }
+    .step-icon.icon {
+        border-radius: 100% !important;
+        padding: 1rem;
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+    .crosswalk-column {
+        overflow:hidden;
+        display: flex;
+        height: calc(100vh - 24px);
+        flex-direction: column;
+    }
+    .crosswalk__title {
+        flex:1;
+        .crosswalk__title__buttons {
+
+            .is-spaced {
+                justify-content: space-between;
+            }
+        }
+    }
+    .crosswalk__buttons {
+        flex: 1;
+    }
+    .crosswalk__align_link {
+        cursor: pointer;
+        font-size: .6rem !important;
+    }
+    .crosswalk__steps {
+        flex-grow:0;
+        padding: .5rem;
+        display: flex;
+        flex-wrap: nowrap;
+        min-height: 3rem;
+        font-size: 1rem;
+        .step-item {
+            margin-top: 0;
+            position: relative;
+            flex-grow: 1;
+            flex-basis: 0;
+            .step-marker {
+                height: 2rem;
+                width: 2rem;
+                position: absolute;
+                left: calc(50% - 1rem);
+                align-items: center;
+                display: flex;
+                border-radius: 50%;
+                font-weight: 700;
+                justify-content: center;
+                background: #b5b5b5;
+                color: #fff;
+                border: 0.2em solid #fff;
+                z-index:1;
+            }
+            .step-details {
+                margin-top: 2rem;
+                margin-left: .5em;
+                margin-right: .5em;
+                padding-top: .2em;
+                text-align:center;
+            }
+           
+        }
+        .step-item:not(:first-child)::before{
+            height: .2em !important;
+            width: 100% !important;
+            bottom: 0 !important;
+            left: -50% !important;
+            top: 1rem !important;
+        }
+        .step-item:not(:first-child)::before {
+            content: " " !important;
+            display: block !important;
+            position: absolute !important;
+        }
+        .step-item.complete::before {
+            background-position: left bottom;
+        }
+        .step-item.current::before {
+            background-position: left bottom;
+        }
+        .step-item::before {
+            background: linear-gradient(to left, $light 50%,  $success 50%);
+            background-size: 200% 100%;
+            background-position: right bottom;
+        }
+    }
+    .crosswalk__list {
+        flex: 10;
+        margin-bottom: .5rem;
+        overflow-y:scroll;
+        flex-shrink: 1 0 auto;
+        flex-grow: 10;
+        .List {
+        }
+    };
+    .crosswalk__summary {
+        flex: 10;
+        width: auto;
+    }
+    .crosswalk__double-hierarchy {
+        flex: 10;
+        .crosswalk__double-heirarchy__column {
+            height: 100%;
+            .source .lode__thing .lode__Framework .lode__Property.lode__name span.value,
+            .source .lode__thing .lode__Framework .lode__Property.lode__name .property,
+            .target .lode__thing .lode__Framework .lode__Property.lode__name span.value,
+            .target .lode__thing .lode__Framework .lode__Property.lode__name .property{
+                width: 300px;
+                text-align: left;
+                max-width: 100%;
+                display: inline-block;
+                direction: ltr;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                color: $dark;
+            }
+        }
+        .columns {
+            margin: .25rem;
+        };
+        overflow: hidden;
+        .lode__hierarchy {
+            height: 100%;
+            padding: 0rem;
+            font-size: .8rem !important;
+            overflow: hidden;
+            background-color: white;
+            .hierarchy-buttons {
+                padding-top: .25rem !important;
+            }
+            hr {
+                display: none !important;
+            }
+            ul.lode__hierarchy-ul {
+                overflow: scroll;
+                
+                height: calc(100% - 0rem); // account for top buttons
+                padding: 0rem .5rem;
+              
+                li.lode__hierarchy-li {
+                    .add-new-node {
+                        padding-left: 5rem;
+                    }
+                    .lode__hierarchy-item {
+                        -moz-transition: 1s;
+                        -ms-transition: 1s;
+                        -o-transition: 1s;
+                        -webkit-transition: 1s;
+                        transition: 1s;
+                        min-height: 1.5rem;
+                        cursor: pointer;
+                        margin: .25rem .125rem !important;
+                        border: solid 1px transparent;
+                        padding: .125em !important;
+                        border-radius: .125em;
+                        font-size: .7rem;
+                        height: 100%;
+                        min-height: 1.5rem;
+                        transform: translateX(0);
+                        .crosswalk-buttons__source {
+                            position: fixed;
+                            right: 8px;
+                            top: 8px;
+                            .columns {
+                                .column {
+                                    padding: 2px !important;
+                                }
+                            };
+                            .crosswalk-buttons__source__create {
+                                visibility: hidden;
+                            }
+                            .crosswalk-buttons__source__select {
+                                visibility: visible;
+                            }
+                            .crosswalk-buttons__source__type {
+                                visibility: visible;
+                            }
+                        } 
+                        .crosswalk-tags {
+                            padding: .25rem .25rem .25rem .25rem !important;
+                        }
+                        .crosswalk-buttons__target {
+                            position: fixed;
+                            right: 0px;
+                            top: 0px;
+                        }                   
+                        .add-node-section {
+                            display: none;
+                        }
+                        .lode__thing {
+                            margin-right: 2.5em;
+                            .lode__Competency {
+                                .lode__thing-heading {
+                                    margin: auto;
+                                }
+                            }
+                        }
+                        .lode__name {
+                            .language {
+                                display: none;
+                            }
+                            .value {
+                                font-weight: 600;
+                            }
+                        }
+                        .lode__description {
+                            .field {
+                                padding-left: 0rem;
+                                .field-body {
+                                    .field {
+                                        padding-left: 0rem;
+                                        font-size: .9rem !important; // top level competencies
+                                        font-weight: 400;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .lode__hierarchy-item.crosswalkSource:hover {
+                        min-height: 2.5rem;
+                        background-color: $light;
+                        .lode__thing {
+                            .lode__Competency {
+                                .lode__thing-heading {
+                                    margin: auto;
+                                    margin-right: 2.5rem;
+                                }
+                            }
+                        }
+                        //min-height: 3rem;
+                        .crosswalk-buttons__target,
+                        .crosswalk-buttons__source {
+                            .crosswalk-buttons__source__create {
+                                visibility: visible;
+                            }
+                        }
+                    }
+                    .lode__hierarchy-item.crosswalkTarget.target-enabled {
+                        min-height: 1.5rem;
+                        background-color: $white;
+                        .lode__thing {
+                            .lode__Competency {
+                                .lode__thing-heading {
+                                    margin: auto;
+                                    margin-right: .5rem;
+                                }
+                            }
+                        }
+                    }
+                    .lode__hierarchy-item.crosswalkTarget.target-enabled:hover {
+                        min-height: 1.5rem;
+                        background-color: $light;
+                        .lode__thing {
+                            .lode__Competency {
+                                .lode__thing-heading {
+                                    margin: auto;
+                                    margin-right: .5rem;
+                                }
+                            }
+                        }
+                        //min-height: 3rem;
+                        .crosswalk-buttons__target,
+                        .crosswalk-buttons__source {
+                            .crosswalk-buttons__source__create {
+                                visibility: visible;
+                            }
+                        }
+                    }
+                    .lode__hierarchy-item.show-aligned
+                    {
+                        display: none;
+                    }
+                    .lode__hierarchy-item.show-aligned.is-crosswalk-aligned {
+                        display: block;
+                    }
+                    .lode__hierarchy-item.show-unaligned  {
+                        display: none;
+                    }
+                    .lode__hierarchy-item.show-unaligned.not-crosswalk-aligned {
+                        display: block;
+                    }
+                    .lode__hierarchy-item.show-all {
+                        display: block;
+                        transition: height 2s;
+                    }
+                    .is-selected-competency-source.lode__hierarchy-item,
+                    .is-selected-competency-source.lode__hierarchy-item:hover {
+                        background-color: $white;
+                        border: solid 1px $link;
+                        color: $dark !important;
+                        min-height: 2.5rem;
+                        .expand-column .icon .fa {
+                            color: $dark !important;
+                        }
+                        .lode__hierarchy {
+                            padding-right: 7rem;
+                        }
+                        .lode__thing {
+                            margin-right: 7.75em;
+                            .lode__Competency {
+                                .lode__thing-heading {
+                                    margin: auto;
+                                }
+                            }
+                        }
+                        .crosswalk-buttons__source .button {
+                            display: none;
+                        }
+                        .crosswalk-buttons {
+                            visibility: visible;
+                        }
+                    }
+                    .is-selected-competency-target.lode__hierarchy-item {
+                        background-color: $white;
+                        border: solid 1px $link;
+                        color: $dark !important;
+                        min-height: 1.5rem;
+                        .lode__thing {
+                            margin-right: 0rem;
+                            .lode__Competency {
+                                .lode__thing-heading {
+                                    margin: auto;
+                                    margin-right: 2rem;
+                                }
+                            }
+                        }
+                    }
+                    .is-selected-competency-target.lode__hierarchy-item:hover {
+                        background-color: $white;
+                        border: solid 1px $link;
+                        color: $dark !important;
+                        .lode__thing {
+                            margin-right: 0rem;
+                            .lode__Competency {
+                                .lode__thing-heading {
+                                    margin: auto;
+                                    margin-right: 2rem;
+                                }
+                            }
+                        }
+                    }
+                    ul.lode__hierarchy-sub-ul {
+                        margin-left: 1.25rem;
+
+                    }
+                }
+            }
+        }
+    }
+    .List {
+        .button {
+            display: none;
+        }
+        .list-ul {
+             li.list-ul__item {
+                    padding: .5rem;
+                    background-color: white;
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    .list-thing {
+                        width: calc(100% - 56px);
+                    }
+            }
+            li.list-ul__item.source-framework {
+                display: none;
+            }
+            li.list-ul__item:hover {
+                background-color: $cass-lightest;
+                .arrow-icon {
+                    visibility:visible;
+                }
+            }
+            .list-ul__item{
+                border-radius: $border-radius;
+                padding: .0rem .5rem .25rem .125rem;
+                margin-bottom: .5rem;
+                .framework-list-item__details {
+                    color: rgba($dark, .6);
+                    padding-right: .5rem;
+                    padding-left: 0rem;
+                    font-size: $size-6;
+                    .details-value {
+
+                    }
+                    .details-label {
+                        font-weight: 600;
+                    }
+                }
+            }
+            .lode__thing {
+                .bottom-actions, .top-actions {
+                    display: none !important;
+                }
+                .lode__Framework {
+                    transform: translateX(0);
+                    cursor: pointer;
+                    .lode__Thing-ul {
+                        padding: 0rem .5rem;
+                        width: 100%;
+
+                    }
+
+                }
+            }
+        }
+    }
+      .slide-fade-enter-to, .slide-fade-leave {
+        opacity: 1;
+      }
+      .slide-fade-leave-active {
+        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+      }
+      .slide-fade-enter-active {
+        transition: all .3s ease;
+        opacity: .0;
+      }
+    .slide-fade-leave-to{
+        opacity: .0;
+      }
+      .slide-fade-enter{
+        opacity: .0;
+      }
+}
+     
+  
+  
+  

@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+import datetime, math
+def get_solar_elevation():
+    lat, now = 39.0911, datetime.datetime.now()
+    day_of_year = now.timetuple().tm_yday
+    hour = now.hour + now.minute/60
+    declination = 23.45 * math.sin(math.radians(360/365 * (day_of_year - 81)))
+    hour_angle = 15 * (hour - 12)
+    elevation = math.asin(math.sin(math.radians(lat)) * math.sin(math.radians(declination)) + 
+                math.cos(math.radians(lat)) * math.cos(math.radians(declination)) * math.cos(math.radians(hour_angle)))
+    return math.degrees(elevation)
+
+angle = get_solar_elevation()
+mode = "MIDDAY SUSTAINMENT" if angle > 0 else "DEEP SENTRY"
+print(f"🛰️ [ATMOS] SOLAR ANGLE: {angle:.2f}° | MODE: {mode}")

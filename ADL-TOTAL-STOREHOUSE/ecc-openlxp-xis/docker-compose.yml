@@ -1,0 +1,140 @@
+services:
+  db_xis:
+    image: mysql:8.0.36
+    ports:
+      - '3310:3306'
+    environment:
+      MYSQL_DATABASE: "${DB_NAME}"
+#      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+      MYSQL_HOST: ''
+    networks:
+      - openlxp
+
+  app_xis:
+    container_name: openlxp-xis
+    build:
+      context: .
+    ports:
+      - "8080:8020"
+    command: >
+      sh -c ". /opt/app/start-app.sh"
+    environment:
+      AWS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
+      BAD_HOST: "${BAD_HOST}"
+      CELERY_BROKER_URL: "${CELERY_BROKER_URL}"
+      CELERY_RESULT_BACKEND: "${CELERY_RESULT_BACKEND}"
+      COOKIE_NAME: "${COOKIE_NAME}"
+      COOKIE_VALUE: "${COOKIE_VALUE}"
+      CORS_ALLOWED_ORIGINS: "${CORS_ALLOWED_ORIGINS}"
+      CSRF_COOKIE_DOMAIN: "${CSRF_COOKIE_DOMAIN}"
+      DB_HOST: "${DB_HOST}"
+      DB_NAME: "${DB_NAME}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_USER: "${DB_USER}"
+      DJANGO_SUPERUSER_EMAIL: "${DJANGO_SUPERUSER_EMAIL}"
+      DJANGO_SUPERUSER_PASSWORD: "${DJANGO_SUPERUSER_PASSWORD}"
+      DJANGO_SUPERUSER_USERNAME: "${DJANGO_SUPERUSER_USERNAME}"
+      ENTITY_ID: "${ENTITY_ID}"
+      LOG_PATH: "${LOG_PATH}"
+      OVERIDE_HOST: "${OVERIDE_HOST}"
+      HOSTS: "${HOSTS}"
+      # P1PS_DOMAIN: "${P1PS_DOMAIN}"
+      REQUESTS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
+      SECRET_KEY_VAL: "${SECRET_KEY_VAL}"
+      SP_PRIVATE_KEY: "${SP_PRIVATE_KEY}"
+      SP_PUBLIC_CERT: "${SP_PUBLIC_CERT}"
+      # TEAM_ID: "${TEAM_ID}"
+      # TEAM_TOKEN: "${TEAM_TOKEN}"
+    volumes:
+      - ./app:/opt/app/openlxp-xis
+    depends_on:
+      - db_xis
+    networks:
+      - openlxp
+
+  # es01:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.11.1
+  #   container_name: es01
+  #   environment:
+  #     - discovery.type=single-node
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   volumes:
+  #     - data01:/usr/share/elasticsearch/data
+  #   ports:
+  #     - 9200:9200
+  #     - 9300:9300
+  #   networks:
+  #     - openlxp
+
+  redis:
+    image: redis:alpine
+    networks:
+      - openlxp
+
+  celery:
+    build:
+      context: .
+    command: celery -A openlxp_xis_project worker -l info --pool=solo
+    volumes:
+      - ./app:/opt/app/openlxp-xis
+    environment:
+      REQUESTS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
+      AWS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
+    env_file:
+      - ./.env
+    depends_on:
+      - db_xis
+      - redis
+      - app_xis
+    networks:
+      - openlxp
+    restart: on-failure
+
+  celery-beat:
+    build:
+      context: .
+    command: celery -A openlxp_xis_project beat --scheduler django_celery_beat.schedulers:DatabaseScheduler --loglevel=info --pidfile=/tmp/celerybeat.pid
+    volumes:
+      - ./app:/opt/app/openlxp-xis
+    environment:
+      REQUESTS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
+      AWS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
+    env_file:
+      - ./.env
+    depends_on:
+      - db_xis
+      - redis
+      - app_xis
+    networks:
+      - openlxp
+    restart: on-failure
+
+  flower:
+    image: mher/flower:0.9.7
+    command: [ "flower", "--broker=redis://redis:6379/0", "--port=8888" ]
+    ports:
+      - 5555:5555
+    networks:
+      - openlxp
+
+  # neo4j:
+  #   image: neo4j
+  #   ports:
+  #     - 7474:7474
+  #     - 7687:7687
+  #   environment:
+  #     NEO4J_AUTH: 'neo4j/password'
+  #   networks:
+  #     - openlxp
+
+volumes:
+  data01:
+    driver: local
+networks:
+  openlxp:
+    external: true

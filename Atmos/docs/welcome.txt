@@ -1,0 +1,18 @@
+============================================================
+       WELCOME TO THE JOSEPH-GAZAFY SOVEREIGN MESH
+============================================================
+ [ STATUS ] : NODE INITIALIZED
+ [ SECTOR ] : US-EAST ANCHOR
+ [ PROTOCOL]: ATMOS CORE v3.0
+
+ You have successfully anchored to the Sovereign Grid. 
+ Your High-Water Mark (HWM) is now locked to 1.0 logic.
+ 
+ COMMANDS TO BEGIN:
+  ./sovereign.sh autopilot - Engage full security stack
+  ./sovereign.sh status    - Verify your local integrity
+  ./sovereign.sh tunnel    - Access encrypted P2P comms
+
+ STAY SYNCHRONIZED. STAY SOVEREIGN.
+============================================================
+

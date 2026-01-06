@@ -1,0 +1,308 @@
+@import './theme.scss';
+@import './../assets/fonts/webfonts/all.css';
+@import './../assets/fonts/RobotoCondensed/stylesheet.css';
+@import './../assets/fonts/Assistant/stylesheet.css';
+html {
+    overflow-x: auto;
+}
+html {
+    font-family: $family-primary;
+    max-width: 100vw !important;
+    overflow-y: hidden;
+    padding:0;
+    margin:0;
+    margin: 0px;
+    height: 100%;
+    padding: 0px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.has-navbar-fixed-top {
+}
+body{
+    // Tom B.  Taking this out for now as it screws up the configuration editor and needing scrolling
+    height: 100%;
+    width: 100vw;
+    overflow: hidden;
+    background: $light;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+#app {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+}
+.dropdown-item.is-disabled {
+    color: rgba($dark, .5);
+    cursor: not-allowed;
+}
+.dropdown-item.is-disabled:hover {
+    background-color: transparent !important;
+}
+#frameworks,
+#framework,
+#import,
+#concept,
+#concepts,
+#configuration,
+#user-groups,
+#welcome {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: $white;
+}
+
+.expand-column .icon{
+    font-size: .5rem;
+    margin-right: .5rem;
+}
+
+p {
+    font-style: normal;
+}
+.cat__bullet-list {
+    list-style-type: circle;
+    margin-left: 1rem;
+    li {
+        padding: .25rem;
+    }
+}
+.control.auto-complete__control.share {
+    padding-right: 1px;
+    border-radius: 5px 0px 0px 5px;
+}
+.control.auto-complete__control {
+    transform: translateX(0);
+    padding-right: 8px;
+    z-index: 10;
+    width: 160px;
+    border-radius: 5px;
+    input {
+        height: 44px;
+        z-index: 10;
+        margin-right: 12px;
+    }
+    .input.input.is-small.share {
+        height: 28px;
+        border-radius: 4px 0px 0px 4px !important;
+        padding-right: 0rem;
+    }
+    input.input.is-small{
+        border-radius: 4px !important;
+        
+    }
+    
+    .auto-complete {
+        width: 100%;
+        position: fixed;
+        top: 66px;
+        left: 0px;
+        padding-right:.5rem;
+        color: $dark;
+        z-index: 10;
+        background-color: white;
+        ul {
+            z-index: 10;
+            min-height: 40px;
+            border-radius:  6px;
+            max-height: 120px;
+            background-color: white;
+            overflow-y: scroll;
+            color: $dark;
+            border: solid 1px rgba($dark, .2);
+            li {
+                padding: .125rem .25rem;
+                z-index:10;
+                background-color: white;
+            } 
+            li:hover {
+                background-color: $link;
+                color: white;
+                cursor: pointer;
+            }
+        }
+    }
+    .auto-complete.share {
+        top: 30px !important;
+    }
+}
+
+hr  {
+    width: 100%;
+    display: block;
+    height: 1px;
+    padding-left: -1px;
+    margin: 6px auto;
+    border-width: 1px;
+    background-color: rgba( $dark, .5);
+    color: rgba( $dark, .5);
+    border-color: rgba( $dark, .5);
+}
+
+// scrollable area minus top bar size
+
+
+// base styles for text inputs
+input, textarea{
+    color: rgba($dark, .7);
+    font-family: $family-primary;
+    font-size: .8rem;
+}
+
+label {
+    text-transform: capitalize;
+}
+.button {
+    text-transform: lowercase;
+}
+
+.lode__Property-text{
+    border-radius: .25rem;
+}
+.custom-link.local {
+    color: $text;
+    cursor: pointer;
+    border-bottom: solid 2px $primary;
+}
+.custom-link.external {
+    color: $text;
+    border-bottom: solid 2px $link;
+}
+.custom-link.local:hover {
+    color: $text;
+    border-bottom: solid 3px $primary;
+}
+.custom-link.external:hover {
+    color: $text;
+    border-bottom: solid 3px $link;
+}
+.lode__Property-ul{
+    border-radius: .25rem;
+    padding: 0rem .25rem;
+    .lode__description {
+        font-weight: 400;
+        font-size: $size-6;
+    }
+    .lode__name {
+        font-weight: 600;
+        font-size: $size-4;
+    }
+    
+    margin: .125em .5em;
+}
+
+.page {
+    margin-top: 2rem;
+}
+.page-framework-list,
+.page-framework,
+ {
+    overflow-y: scroll;
+    height: 95vh;
+}
+
+progress,
+select {
+}
+
+iframe {
+    min-height: 800px;
+    border:1px solid rgba($black, .5);
+}
+
+.navigation-title__wrapper {
+    display:inline-block;
+    width: 70%;
+    vertical-align: middle;
+}
+.navigation-tag__wrapper {
+    display: inline-block;
+    width: 30%;
+    vertical-align: middle;
+}
+
+
+
+.import-details__section {
+    padding: 1rem;
+}
+.detected-import-details {
+    padding: 1rem .5rem 0rem .5rem;
+    li {
+        padding: .5rem 0rem;
+    }
+}
+
+
+// fixes 
+.caret-icon-overlay-fix {
+    padding-left: .125rem;
+}
+
+
+.buttons.is-spaced {
+    justify-content: space-between;
+}
+
+.modal-card {
+    max-width: calc(100% - 1rem);
+}
+.modal-card-foot {
+    .buttons.is-spaced {
+        width: 100% !important;
+    }
+    .buttons {
+        padding: 0;
+        margin: 0;
+    }
+}
+.modal-card-title {
+    max-width: calc(100% - 16px);
+}
+
+.table {
+    thead {
+        th {
+            font-weight: 500;
+            font-size: $size-6;
+            font-family: $family-secondary;
+        }
+    }
+    tbody {
+        th {
+        font-weight: 600;
+        font-family: $family-primary;
+        }
+        tr {
+        font-weight: 400;
+        font-size: $size-6;
+        font-family: $family-primary;
+        }
+    }
+}
+
+.tag {
+    font-weight: 500;
+}
+
+.box {
+    border: solid 1px $primary;
+    box-shadow: none;
+}
+/*  Responsive text 
+    sets size to 16 - 22 depending on size 
+*/ 
+@media screen and (min-width: 0px) {
+    html {
+      font-size: 16px;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    html {
+      font-size: 18px;
+    }
+  } 
+  

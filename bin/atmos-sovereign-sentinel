@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+import re, datetime, sys, subprocess, json, math, time
+try:
+    from thefuzz import fuzz
+except ImportError:
+    print("🛰️ [ATMOS] Dependency missing: pip install thefuzz")
+    sys.exit(1)
+
+# TARGETS: Surnames + First Names (Epistemic Truth Anchors)
+TARGETS = [
+    "gazafy", "mckelvy", "acevedo", "tuala", "angie", "maria", "phil", 
+    "marries", "joe", "joseph", "jojo", "garrett", "evan", "janelle", "kennedy", "sina"
+]
+GRAVITY = 9.80665
+
+def get_seismic():
+    try:
+        res = subprocess.run(['termux-sensor', '-s', 'accelerometer', '-n', '1'], capture_output=True, text=True)
+        data = json.loads(res.stdout)
+        return math.sqrt(sum(v**2 for v in data['accelerometer']['values']))
+    except: return GRAVITY
+
+def scan_text(text):
+    char_map = {'a':'[aA4@]', 'e':'[eE3]', 'i':'[iI1!l]', 'o':'[oO0]', 'u':'[uUvV]', 's':'[sS5$]'}
+    flags = []
+    for name in TARGETS:
+        pattern = "".join(char_map.get(c.lower(), c) for c in name)
+        if re.search(r'\b' + pattern + r'\b', text, re.I):
+            flags.append(f"REGEX:{name.upper()}")
+        elif fuzz.partial_ratio(name, text.lower()) > 85:
+            flags.append(f"FUZZY:{name.upper()}")
+    return flags
+
+if __name__ == "__main__":
+    print("🌑💎 [ATMOS-SENTINEL] AGENTIC SCANNER ACTIVE")
+    while True:
+        # SENSE: Physical and Digital layers
+        seismic_dev = abs(get_seismic() - GRAVITY)
+        # In a real run, you would pipe digital streams here
+        sample_text = "Checking for variations of Mck3lvy and Phil..." 
+        digital_flags = scan_text(sample_text)
+        
+        # REASON & ACT: Coupled Adaptive Response
+        if seismic_dev > 0.5 or digital_flags:
+            ts = datetime.datetime.now().strftime("%H:%M:%S")
+            print(f"[{ts}] 🚨 BREACH ALERT | Seismic: {seismic_dev:.4f} | Flags: {digital_flags}")
+            # LEARN: Log for Retrospective Resilience
+            with open("sovereign_log.txt", "a") as f:
+                f.write(f"[{ts}] DETECTED: {digital_flags} | SEISMIC: {seismic_dev}\n")
+        time.sleep(1)

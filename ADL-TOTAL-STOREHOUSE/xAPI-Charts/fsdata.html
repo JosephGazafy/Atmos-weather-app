@@ -1,0 +1,287 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="bootstrap-3.3.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap-3.3.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="xAPI-Dashboard/lib/xapiwrapper.min.js"></script>
+<style>
+
+.profile-pane {
+    background-color: #f9f9f9; 
+    height: 250px; 
+    overflow: hidden;
+}
+
+.profile-text {
+    clear: both;
+}
+
+.profile-info {
+    margin-top: 20px;
+}
+    
+.profile-img {
+    margin: auto;
+}
+
+.jumbotron {
+    background-image: url('images/glass-banner-bg-min.png');
+    color: azure;
+}
+</style>
+</head>
+<body>
+    <div class="jumbotron">
+        <h1 style="padding-left: 35px">Google Glass App Downloads</h1>
+    </div>
+    <div class="container">
+        <div role="tabpanel">
+
+<!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+
+                <li role="presentation" class="active">
+                    <a href="#tom" aria-controls="tom" role="tab" data-toggle="tab">
+                        <img style="max-width:50px" class="profile-tab" src="https://lh3.googleusercontent.com/-d5iW79s8E1c/AAAAAAAAAAI/AAAAAAAAAFU/OO7Iw08HbLA/s120-c/photo.jpg" />
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#jono" aria-controls="jono" role="tab" data-toggle="tab">
+                        <img style="max-width:50px" class="profile-tab" src="https://lh3.googleusercontent.com/-LioLvL0k0j0/AAAAAAAAAAI/AAAAAAAAwv8/2bA6OMR-Mmo/s120-c/photo.jpg" />
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#va" aria-controls="va" role="tab" data-toggle="tab">
+                        <img style="max-width:50px" class="profile-tab" src="https://lh3.googleusercontent.com/--bpPKz4tjtU/AAAAAAAAAAI/AAAAAAABCvk/Of45D57cip0/s120-c/photo.jpg" />
+                    </a>
+                </li>
+                
+            </ul>
+
+          <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="tom">
+                    <div class="row profile-pane">
+                        <div class="col-md-3">
+                            <div class="profile-info">
+                                <img align="left" class="profile-img thumbnail" src="https://lh3.googleusercontent.com/-d5iW79s8E1c/AAAAAAAAAAI/AAAAAAAAAFU/OO7Iw08HbLA/s120-c/photo.jpg" alt="Profile image example" />
+                                <div class="profile-text">
+                                    <h1>tom creighton</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="profile-bg">
+                                <img align="left" class="profile-image-lg" src="https://lh3.googleusercontent.com/-R-Sobx74AEg/VPb7PxPpmiI/AAAAAAAATAU/qELF6s2m4dg/s768-fcrop64=1,000026e6e6b3d4b3/IMG_5785.JPG" alt="tom's profile bg pic"  style="width:100%"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                       <h3>Glass Apps</h3>
+                        <div class="thumbnails" id="tom-glass-apps">
+                             
+                        </div>
+                    </div>
+                </div>
+                
+                <div role="tabpanel" class="tab-pane" id="jono">
+                    <div class="row profile-pane">
+                        <div class="col-md-3">
+                            <div class="profile-info">
+                                <img align="left" class="profile-img thumbnail" src="https://lh3.googleusercontent.com/-LioLvL0k0j0/AAAAAAAAAAI/AAAAAAAAwv8/2bA6OMR-Mmo/s120-c/photo.jpg" alt="Profile image example" />
+                                <div class="profile-text">
+                                    <h1>jono poltrack</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="profile-bg">
+                                <img align="left" class="profile-image-lg" src="https://lh3.googleusercontent.com/-IXtAaa8EgLQ/VFJCEUxjfWI/AAAAAAAAwRI/0Wy1yzkso68/s768-fcrop64=1,03660374ffffffff/20141025_180947.jpg" alt="jono's profile bg pic"  style="width:100%"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                       <h3>Glass Apps</h3>
+                        <div class="thumbnails" id="jono-glass-apps">
+                             
+                        </div>
+                    </div>
+                </div>
+                
+                <div role="tabpanel" class="tab-pane" id="va">
+                    <div class="row profile-pane">
+                        <div class="col-md-3">
+                            <div class="profile-info">
+                                <img align="left" class="profile-img thumbnail" src="https://lh3.googleusercontent.com/--bpPKz4tjtU/AAAAAAAAAAI/AAAAAAABCvk/Of45D57cip0/s120-c/photo.jpg" alt="Profile image example" />
+                                <div class="profile-text">
+                                    <h1>virginia poltrack</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="profile-bg">
+                                <img align="left" class="profile-image-lg" src="https://lh3.googleusercontent.com/-k52WVEDG6qo/VE-TGkS1oDI/AAAAAAAA8w0/4JELY9cCG10/s765-fcrop64=1,00003bc2ffffffff/20141024_140441_631.jpg" alt="va's profile bg pic"  style="width:100%"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                       <h3>Glass Apps</h3>
+                        <div class="thumbnails" id="va-glass-apps">
+                             
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        var glass_data = {
+            "http://flashstack.com/activities/FDR+Pearl+Harbor+Speech" : {
+                "name":"FDR Pearl Harbor Speech",
+                "url":"http://flashstacks.azurewebsites.net/Stacks/Details/1080",
+                "img":"http://flashstacks.azurewebsites.net/Users/9f62b8625f914a002496335037e9ad97/Uploads/crop_7513e92a-8050-4cd1-85b0-bc71919ad45a.jpg"
+            },
+            "http://flashstack.com/activities/FDR+Stack" : {
+                "name":"FDR Stack",
+                "url":"http://flashstacks.azurewebsites.net/Stacks/Details/1082",
+                "img":"http://flashstacks.azurewebsites.net/Users/093b60fd0557804c8ba0cbf1453da22f/Uploads/crop_c6a31fa7-3c0e-4200-8a2f-774b4cefdc52.jpg"
+            },
+            "http://flashstack.com/activities/Google+glass+basics" : {
+                "name":"Google Glass Basics",
+                "url":"http://flashstacks.azurewebsites.net/Stacks/Details/2114",
+                "img":"http://flashstacks.azurewebsites.net/Users/4b86abe48d358ecf194c56c69108433e/Uploads/crop_c659ced0-1f9c-47ea-af6b-2d8b6c89c7ab.png"
+            },
+            "http://flashstack.com/activities/Echocardiography+Stack" : {
+                "name":"Echocardiography Stack",
+                "url":"http://flashstacks.azurewebsites.net/Stacks/Details/1018",
+                "img":"http://flashstacks.azurewebsites.net/Users/e4da3b7fbbce2345d7772b0674a318d5/Uploads/crop_f8c55d4d-f288-4bef-9c5d-d8206bb1a480.png"
+            },
+            "http://flashstack.com/activities/Google+Cardboard+Instructions" : {
+                "name":"Cardboard Instructions",
+                "url":"http://flashstacks.azurewebsites.net/Stacks/Details/2119",
+                "img":"http://flashstacks.azurewebsites.net/Users/c81e728d9d4c2f636f067f89cc14862c/Uploads/crop_ce5a8faa-d1d9-41cf-9f6c-13007fa2195c.jpg"
+            },
+            "http://flashstack.com/activities/IV+Replacement+Fluids" : {
+                "name":"IV Replacement Fluids",
+                "url":"http://flashstacks.azurewebsites.net/Stacks/Details/1019",
+                "img":"http://flashstacks.azurewebsites.net/Users/e4da3b7fbbce2345d7772b0674a318d5/Uploads/crop_45164b95-6394-44ca-90fe-33368946936b.jpg"
+            },
+            "http://flashstack.com/activities/Restoration+RCT+Abutment" : {
+                "name":"Restoration RCT Abutment",
+                "url":"http://flashstacks.azurewebsites.net/Stacks/Details/2118",
+                "img":"http://flashstacks.azurewebsites.net/Users/4b86abe48d358ecf194c56c69108433e/Uploads/crop_39c885ab-b37a-4189-bc1a-c401b344c8ae.png"
+            },
+            "http://flashstack.com/activities/How+to+Make+Pierogi" : {
+                "name":"How to Make Pierogi",
+                "url":"http://flashstacks.azurewebsites.net/Stacks/Details/1021",
+                "img":"http://flashstacks.azurewebsites.net/Users/c81e728d9d4c2f636f067f89cc14862c/Uploads/crop_38f1480d-4697-4e00-9332-b565b6e58266.jpg"
+            },
+            "http://flashstack.com/activities/Oculus+Rift+Setup" : {
+                "name":"Oculus Rift Setup",
+                "url":"http://flashstacks.azurewebsites.net/Stacks/Details/2108",
+                "img":"http://flashstacks.azurewebsites.net/Users/c81e728d9d4c2f636f067f89cc14862c/Uploads/crop_a33a507c-857f-4b67-9a2f-fdca4638b7f6.jpg"
+            },
+            "http://flashstack.com/activities/Getting+to+know+the+Myo" : {
+                "name":"Getting to know the Myo",
+                "url":"http://flashstacks.azurewebsites.net/Stacks/Details/2120",
+                "img":"http://flashstacks.azurewebsites.net/Users/c81e728d9d4c2f636f067f89cc14862c/Uploads/crop_ce3560a0-3a03-4694-99ca-ea034689b4a6.jpg"
+            }
+        };
+        
+        var folks = {
+            "mailto:jonopoltrack@gmail.com" : { 
+                "id":"jono"
+            },
+            "mailto:tjcreighton@gmail.com" : { 
+                "id":"tom"
+            },
+            "mailto:virginiapoltrack@gmail.com" : { 
+                "id":"va"
+            }
+        };
+        
+        if(!Object.keys) Object.keys = function(o){
+           if (o !== Object(o))
+              throw new TypeError('Object.keys called on non-object');
+           var ret=[],p;
+           for(p in o) if(Object.prototype.hasOwnProperty.call(o,p)) ret.push(p);
+           return ret;
+        }
+        ADL.XAPIWrapper.changeConfig({endpoint:"https://lrs.adlnet.gov/xapi/"});
+        
+        var fsstmts = [];
+        ADL.XAPIWrapper.getStatements(
+            {'activity':'http://flashstacks.com/activities',
+             'related_activities':'true'}, null, 
+             function getmore(r) {
+                 var res = JSON.parse(r.response);
+                 fsstmts = fsstmts.concat(res.statements);
+                 if (res.more && res.more !== "") {
+                     ADL.XAPIWrapper.getStatements(null, res.more, getmore);
+                 }
+                 else {
+                     writeData(sortStmts());
+                 }
+             });
+        
+        function sortStmts() {
+            var sorted = {};
+            for ( idx in fsstmts ) {
+                var s = fsstmts[idx];
+                try {
+                    var key = s.actor.mbox;
+                }
+                catch (e) {
+                    continue;
+                }
+                
+                if (sorted[key]) {
+                    sorted[key].push(s);
+                }
+                else {
+                    sorted[key] = [s];
+                }
+            }
+            return sorted;
+        }
+        
+        function writeData(sorted) {
+            for ( uidx in sorted ) {
+                writeUserApps(sorted[uidx], folks[uidx]);
+            }
+        }
+        
+        function writeUserApps(stmts, userid) {
+            var uniqueappobj = stmts.reduce(function(prev, cur, idx, arr) {
+                prev[cur.object.id] = cur;
+                return prev;
+            }, {});
+            var unique = [];
+            for (key in uniqueappobj) unique.push(uniqueappobj[key]);
+            
+            for(idx in unique) {
+                addCard(unique[idx], userid);
+            }
+        }
+        
+        function addCard(stmt, userid) {
+            var info = glass_data[stmt.object.id];
+            if (info == undefined) return;
+            var eleid = "#"+userid['id']+"-glass-apps";
+            var apppanel = $(eleid);
+            apppanel.append('<div class="col-md-4">' +
+                        '<div class="thumbnail">' +
+                            '<img src="'+info.img+'" alt="ALT NAME" class="img-responsive" />' +
+                            '<div class="caption">' +
+                                 '<h3>'+info.name+'</h3>' +
+                                '<p align="center"><a href="'+info.url+'" class="btn btn-primary btn-block" target="_blank">Open</a>' +
+                                '</p>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>');
+        }
+    </script>
+</body>
+</html>

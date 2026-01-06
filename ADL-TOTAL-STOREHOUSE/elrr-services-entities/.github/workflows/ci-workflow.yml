@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '*'
+    tags:
+      - 'v*.*.*'
+
+jobs:  
+  build:
+    # Install/build maven dependencies
+    runs-on: ubuntu-latest    
+
+    steps:
+
+    - name: Set up archived Oracle JDK 17.0.3.1
+      uses: oracle-actions/setup-java@v1
+      with:
+        website: oracle.com
+        release: 17
+        version: 17.0.3.1
+    
+    - name: Checkout tools repo
+      uses: actions/checkout@v4
+
+    - name: Build Bundle
+      run: make package

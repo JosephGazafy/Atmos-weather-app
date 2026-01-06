@@ -1,0 +1,25 @@
+*.pyc
+*.log
+.env
+env
+build
+migrations
+runtests
+.coverage
+404.html
+500.html
+media/
+federated-analytics.js
+lrs/celery.py
+.vscode/
+lrs-env/
+docker-compose.dev.yml
+
+docker/lrs/settings.ini
+docker/settings.ini
+settings.ini
+adl_lrs/settings.ini
+docker/data
+# *.conf
+
+scratch/

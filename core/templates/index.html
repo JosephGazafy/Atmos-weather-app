@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Atmos Engine Dashboard</title>
+    <style>
+        body { background: #0f172a; color: #38bdf8; font-family: monospace; padding: 20px; }
+        .box { border: 1px solid #38bdf8; padding: 20px; border-radius: 8px; background: #1e293b; margin-bottom: 20px; }
+        .console { background: #000; color: #4ade80; padding: 15px; height: 200px; overflow-y: auto; border: 1px solid #444; font-size: 0.9rem; }
+        h1 { color: #f472b6; text-shadow: 0 0 10px #f472b6; }
+        .data { font-size: 1.5rem; margin: 10px 0; }
+        .status { color: #4ade80; }
+    </style>
+</head>
+<body>
+    <h1>ATMOS CORE SYSTEM</h1>
+    <div class="box">
+        <p class="status">● SYSTEM ACTIVE</p>
+        <div class="data">Engine Parity: <span id="parity">Loading...</span></div>
+        <div class="data">Heat Index: <span id="heat">Loading...</span></div>
+    </div>
+    <h3>SYSTEM LOGS</h3>
+    <div class="console" id="log-window">Initializing log stream...</div>
+
+    <script>
+        function updateData() {
+            fetch('/evaluate').then(response => response.json()).then(data => {
+                document.getElementById('heat').innerText = data.heat_index || "0.00";
+                document.getElementById('parity').innerText = data.status || "IDLE";
+            });
+        }
+        function updateLogs() {
+            fetch('/get_logs').then(response => response.json()).then(logs => {
+                const logWindow = document.getElementById('log-window');
+                logWindow.innerHTML = logs.join('<br>');
+                logWindow.scrollTop = logWindow.scrollHeight;
+            });
+        }
+        setInterval(updateData, 2000);
+        setInterval(updateLogs, 3000);
+    </script>
+</body>
+</html>

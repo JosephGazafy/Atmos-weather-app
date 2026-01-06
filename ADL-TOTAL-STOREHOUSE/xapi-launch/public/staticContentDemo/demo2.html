@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<script src="/static/scripts/require.js"></script>
+		<script src="/static/scripts/jquery.min.js"></script>
+		<script src="/static\bootstrap-3.3.6-dist\js\bootstrap.min.js"></script>
+		<script src='/static/xapiwrapper.min.js'></script>
+		<link rel="stylesheet" href="/static\bootstrap-3.3.6-dist\css\bootstrap.min.css"></link>
+		<link rel="stylesheet" href="/static\bootstrap-3.3.6-dist\css\bootstrap-theme.min.css"></link>
+	</head>
+	<body>
+		This is a demo of using static content with the XAPI Launch platform. When you click the button, your LRS will include the statement.
+		
+		<script>
+			$(document).ready(function()
+			{
+	
+			    ADL.launch(function(err,apiData,xAPI){
+			    	if(err)
+			    	{
+
+			    	}else
+			    	{	
+			    		
+			    		var t = new ADL.XAPIStatement(apiData.actor,"http://adlnet.gov/expapi/verbs/viewed",window.location+"/test");
+			    		xAPI.sendStatement(t);
+					}
+				},true)
+			})
+		</script>
+		
+
+	</body>
+</html>

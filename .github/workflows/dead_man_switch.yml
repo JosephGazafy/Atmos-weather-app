@@ -1,0 +1,25 @@
+name: DEAD_MAN_WATCHER
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at midnight
+
+jobs:
+  check_pulse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Calculate Time Since Pulse
+        run: |
+          LAST_PULSE=$(cat .last_pulse)
+          NOW=$(date +%s)
+          DIFF=$((NOW - LAST_PULSE))
+          
+          if [ $DIFF -gt 604800 ]; then
+            echo "ALERT: OPERATOR SILENT FOR > 7 DAYS. TRIGGERING BROADCAST."
+            # Insert your notification logic here (e.g., Send email via SendGrid API)
+            curl -X POST -H "Authorization: Bearer ${{ secrets.NOTIFY_TOKEN }}"             -d '{"to": "trusted_contact@domain.com", "subject": "ATMOS ALERT: NODE SILENT"}'             https://api.notifier.com/send
+          else
+            echo "Operator is Active. Pulse is within 7-day window."
+          fi

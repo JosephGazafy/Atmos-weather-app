@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>cmi5 AU</title>                      
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="Scripts/cmi5Controller.js"></script>
+    <script src="Scripts/xapiwrapper.min.js"></script>
+    <script src="Scripts/cmi5Wrapper.js"></script>
+    <script src="Scripts/moment.min.js"></script>    
+    <link href="Content/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="Content/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+    <link href="Content/prettify.min.css" rel="stylesheet" type="text/css"/>
+    <script>
+        // Get jquery into a local variable to improve performance
+        var jq = $;
+
+        // Other global vars
+        var testScore = 0;
+        var statementsSent = [];  
+
+        // In this example, we will send "cmi5 allowed" statements for test questions.  Following cmi5 best practice,
+        // each question will be associated with an objective.
+        var objectives = [
+            {
+               "en-US": "Indentify the best Lamborghini model" 
+            },
+            {
+               "en-US": "Identify the best trim package for a Lamborghini"
+            }
+        ];
+
+        // jQuery init.  This is called once jQuery is fully loaded and ready to go.
+        jq(function() {
+            // Parse parameters passed on the command line and set properties of the cmi5 controller.
+            cmi5Controller.setEndPoint(parse("endpoint"));
+            cmi5Controller.setFetchUrl(parse("fetch"));
+            cmi5Controller.setRegistration(parse("registration"));
+            cmi5Controller.setActivityId(parse("activityid"));
+            cmi5Controller.setActor(parse("actor"));
+
+            // Call the cmi5Controller.startUp() method.  Two call back functions are passed:
+            // cmi5Ready......This function is called once the controller has fetched the authorization token, read the State document and the agent Profile.
+            // startUpError...This function is called if the startUp() method detects an error.
+            cmi5Controller.startUp(cmi5Ready, startUpError);
+        });
+
+        function cmi5Ready() {
+            // This method was passed to the cmi5Controller.startup() call.
+
+            // Set additional properties for the xAPI object.
+            // The cmi5Controller already knows the object ID to use in cmi5-defined statements since it is passed on the launch command.  
+            // It does not know: 
+            // 1) The langstring used by the AU.
+            // 2) The actitityType
+            // 3) The name of the AU
+            // 4) The description of the AU
+            //
+            cmi5Controller.setObjectProperties("en-US",
+                "http://adlnet.gov/expapi/activities/assessment",
+                "ADL AU Example 1",
+                "This is a simple example of an AU.");
+
+            // Perform any other setup actions required by the AU here.
+
+            // Send the initialized statement
+            SendStatement("Initialized");
+        }
+
+        function startUpError() {
+            // This is called if there is an error in the cmi5 controller startUp method.
+            alert("An error was detected in the cmi5Controller.startUp() method.  Please check the console log for any errors.");
+        }
+
+        function SendChoice(questNo) {
+            // This method sends a "cmi5 allowed" statement for a test question used in this AU.
+
+            // Disable calling button
+            jq("#btnSubmit" + questNo.toString()).prop("disabled", true);
+
+            // Build "choices" for the question.  For example purposes, the question ID is built by adding
+            // a string to the AU's activity ID.  The same is done for each answer.
+            var activityId = cmi5Controller.getAUActivityId() +
+                             "/Test/1/Question/" +
+                             questNo.toString(); 
+            var correctAnswer = jq("#Correct" + questNo.toString()).val();
+            var choices = [];
+            var answerNo = 1;
+            jq("#Answers" + questNo.toString() + " option").each(function() {
+                choices.push({
+                    "id": activityId + "/Answer/" + answerNo.toString(),
+                    "description": { "en-US": jq(this).val() }
+                });
+                answerNo++;
+            });
+
+            // Make a cmi.interaction object for our question
+            var obj = {
+                "objectType": "Activity",
+                "id": activityId,
+                "definition": {
+                    "type": "http://adlnet.gov/expapi/activities/cmi.interaction",
+                    "name": { "en-US": "Test Question " + questNo.toString() },
+                    "description": { "en-US": jq("#Question" + questNo.toString()).html() },
+                    "interactionType": "choice",
+                    "correctResponsesPattern": [correctAnswer],
+                    "choices": choices
+                }
+            };
+
+            // Get the basic structure of a "cmi5 allowed" statement
+            var stmt = cmi5Controller.getcmi5AllowedStatement(
+                ADL.verbs.answered,
+                obj,
+                cmi5Controller.getContextActivities(),
+                cmi5Controller.getContextExtensions());
+
+            // Add the objective (cmi5 best practice)           
+            var objective = {
+                "objectType": "Activity",
+                "id": cmi5Controller.getAUActivityId() +
+                      "/Objective/" +
+                      questNo.toString(),
+                "definition": {
+                    "type": "http://adlnet.gov/expapi/activities/objective",
+                    "name": objectives[questNo - 1]
+                }
+            };
+
+            if (!stmt.context.contextActivities.parent) {
+                stmt.context.contextActivities.parent = [];
+            }
+            stmt.context.contextActivities.parent.push(objective);
+
+            // Create the result property
+            // Score: Assume a 2 question test, each question worth 50 points.
+            var response = jq("#Answers" + questNo.toString()).val();
+            var success = correctAnswer === response;
+            var points = success ? 50 : 0;
+            stmt.result = {
+                "success": success,
+                "response": response,
+                "score": {
+                    "raw": points,
+                    "min": 0,
+                    "max": 50
+                }
+            };
+
+            // Add points to the total points
+            testScore += points;
+
+            // Send the "cmi5 allowed" statement using a controller method.  The second parameter is an optional
+            // callback function.
+            cmi5Controller.sendStatement(stmt, sentStatement);
+
+            // Enable the "next" button
+            jq("#btnNext").prop("disabled", false);
+        }
+        
+        function GetDuration() {
+            var start = moment(cmi5Controller.getStartDateTime());
+            var end = moment(Date.now());
+
+            return moment.duration(end.diff(start), "ms").toISOString();
+        }
+
+        function GoPage(pageNo) {
+            // Hides all pages except the requested page number.
+            jq(".page_").not("#page" + pageNo.toString()).hide();
+            jq("#page" + pageNo.toString()).show();
+        }
+
+        function CheckMoveOn() {
+            // Mastery score is scaled: between 0 and 1
+            var score = testScore / 100;
+
+            // Send passed/failed
+            var duration = GetDuration();
+            if (score >= cmi5Controller.getMasteryScore()) {
+                SendStatement("Passed", score, duration);
+            } else {
+                SendStatement("Failed", score, duration);
+            }
+
+            // Since the student reached page 2 of a two page course, it is completed.
+            // Send a "cmi5 defined" completed statement.
+            SendStatement("Completed", undefined, duration);
+        }
+
+        function sentStatement(resp, obj) {     
+            // This is the callback method referenced in call to cmi5Controller.sendStatement()
+            if (resp && resp.status === 200) {
+
+                // Statement was successfully sent.  Add statement to the drop down selector of the statement viewer.
+                for (var i = 0; i < statementsSent.length; i++) {
+                    var valueToFind = "value='" + i.toString() + "'";
+                    var isFound = jq("option[" + valueToFind + "]");
+                    var lastVerbSent;
+                    if (isFound.length === 0) {
+                        var verbSent = statementsSent[i].verb;
+                        if (verbSent.display["en-US"]) {
+                            lastVerbSent = verbSent.display["en-US"];
+                        } else if (verbSent.display["und"]) {
+                            lastVerbSent = verbSent.display["und"];
+                        } else {
+                            lastVerbSent = verbSent.verb.id;
+                        }
+
+                        jq("#cmbStatements").prepend("<option value='" + i.toString() + "'>" + lastVerbSent + "</option>");
+                        jq("#cmbStatements").val(i.toString());
+                    }
+                }
+
+                // Show the last statement sent.
+                showStatement();
+            }
+        }
+
+        function showStatement() {
+            // Write the currently selected statement to the screen
+            jq("#list").html(format(statementsSent[jq("#cmbStatements").val()]));
+            jq("#results").show();
+        }
+
+        function format(d) {
+            // This function formats JSON for display on screen.
+            return '<div><pre class="prettyprint lang-js">' +
+                JSON.stringify(d, null, 2) +
+                '</pre></div>';
+        }
+    </script>
+</head>
+<body>
+    <div class="page_ container" id="page1" style="margin-top: 12px;">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3 class="panel-title">Training Page 1</h3>
+                    </div>
+                    <div class="col-md-8">
+                        <button style="float: right;" type="button" class="btn btn-default" onclick="FinishAU(GetDuration());">Return to LMS</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4" id="Question1">Which Lamborghini Model do you like best?</div>
+                    <div class="col-md-4">
+                        <select id="Answers1" class="form-control">
+                            <option value="Aventador">Aventador</option>
+                            <option value="Gallardo">Gallardo</option>
+                            <option id="Correct1" value="Huracan (Correct)">Huracan (Correct)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <button id="btnSubmit1" type="button" class="btn btn-default" onclick="SendChoice(1);">Submit</button>&nbsp;
+                        <button id="btnNext" type="button" disabled="disabled" class="btn btn-default" onclick="GoPage(2);">Next ></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="results1" style="display: none;">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="panel-title">Statement Sent</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <output id="list1"></output>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="page_ container" id="page2" style="margin-top: 12px; display: none;">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="panel-title">Training Page 2</h3>
+                </div>
+                <div class="col-md-8">
+                    <button style="float: right;" type="button" class="btn btn-default" onclick="FinishAU();">Return to LMS</button>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4" id="Question2">Which is the best trim package for a Huracan?</div>
+                <div class="col-md-4">
+                    <select id="Answers2" class="form-control">
+                        <option value="Coupe">Coupe</option>
+                        <option value="Spyder">Spyder</option>
+                        <option value="Performante">Performante</option>
+                        <option id="Correct2" value="Evo (Correct)">Evo (Correct)</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button id="btnSubmit2" type="button" class="btn btn-default" onclick="SendChoice(2);CheckMoveOn();">Submit</button>&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="results" style="display: none;" class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-9">
+                    <h3 class="panel-title">Statement Viewer</h3>
+                </div>
+                <div class="col-md-3">
+                    <select id="cmbStatements" style="width: 200px;" onchange="showStatement();" class="form-control"></select>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <output id="list"></output>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

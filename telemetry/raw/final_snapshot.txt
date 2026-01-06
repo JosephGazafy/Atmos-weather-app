@@ -1,0 +1,7 @@
+--- ATMOS FORENSIC SNAPSHOT ---
+TIMESTAMP: Tue Dec 30 14:01:54 CST 2025
+PRINCIPAL: $165,737.61
+AUDIT: 99.63% PURE
+BRANCH: Master
+alias atmos='python3 /data/data/com.termux/files/home/Atmos/dashboard.py'
+alias swarm='python3 /data/data/com.termux/files/home/Atmos/swarm_gui.py'

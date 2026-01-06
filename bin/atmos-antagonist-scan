@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+import re
+import datetime
+import sys
+try:
+    from thefuzz import fuzz
+except ImportError:
+    print("🛰️ [ATMOS] Dependency missing: pip install thefuzz")
+    sys.exit(1)
+
+# ATMOS WATCH LIST: 4 Surnames + 12 First Names
+TARGETS = [
+    "gazafy", "mckelvy", "acevedo", "tuala",
+    "angie", "maria", "phil", "marries", 
+    "joe", "joseph", "jojo", "garrett", 
+    "evan", "janelle", "kennedy", "sina"
+]
+
+def scan_pulse(text_stream, author="UNKNOWN"):
+    char_map = {'a':'[aA4@]', 'e':'[eE3]', 'i':'[iI1!l]', 'o':'[oO0]', 'u':'[uUvV]', 's':'[sS5$]'}
+    flagged = []
+    
+    for name in TARGETS:
+        # Layer 1: Future-Back Regex (Detecting Obfuscation Flags)
+        pattern = "".join(char_map.get(c.lower(), c) for c in name)
+        regex = re.compile(r'\b' + pattern + r'\b', re.IGNORECASE)
+        
+        if regex.search(text_stream):
+            flagged.append(f"⚠️ REGEX-MATCH: {name.upper()}")
+        
+        # Layer 2: Representational Stability Probe (Fuzzy Veracity Check)
+        elif fuzz.partial_ratio(name, text_stream.lower()) > 85:
+            flagged.append(f"🕵️ FUZZY-STABILITY-WARNING: {name.upper()}")
+            
+    if flagged:
+        ts = datetime.datetime.now().strftime("%H:%M:%S")
+        print(f"[{ts}] SOURCE: {author} | STATUS: FLAG-DETECTED")
+        for f in flagged:
+            print(f"  └─ {f}")
+        return True
+    return False
+
+if __name__ == "__main__":
+    print("🌑💎 [ATMOS-TACTICAL] ANTAGONIST SCANNER ACTIVE")
+    # Simulation for Initialization
+    scan_pulse("I heard G4rrett and Mck3lvy are talking.", "Invasive_Species_01")

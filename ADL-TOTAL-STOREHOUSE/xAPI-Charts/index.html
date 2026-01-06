@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="bootstrap-3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="xAPI-Dashboard/lib/nv.d3.css">
+    <script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+    <style>
+    .matbox
+    {
+/*
+        padding-top: 60px;
+        padding-right: 20px;
+*/
+        padding: 0;
+        display: table;
+        margin: auto;
+        width: 650px;
+        height: 350px;
+    }
+    .shadow
+    {
+        border: 1px solid #DDD;
+        border-spacing: 3px;
+        -webkit-box-shadow: 5px 5px 20px #AAA;
+           -moz-box-shadow: 5px 5px 20px #AAA;
+                box-shadow: 5px 5px 20px #AAA;
+
+    }
+    .jumbotron
+    {
+        background: #85BFDB;
+        text-align: center;
+    }
+    .panel-heading {
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+        background:url("images/vwsbx.png") no-repeat center top;
+    }
+
+    .card {
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .card {
+      margin-top: 10px;
+      box-sizing: border-box;
+      border-radius: 2px;
+      background-clip: padding-box;
+    }
+    .card span.card-title {
+        color: #fff;
+        font-size: 24px;
+        font-weight: 300;
+        text-transform: uppercase;
+    }
+
+    .card .card-image {
+      position: relative;
+      overflow: hidden;
+    }
+    .card .card-image img {
+      border-radius: 2px 2px 0 0;
+      background-clip: padding-box;
+      position: relative;
+      z-index: -1;
+    }
+    .card .card-image span.card-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      padding: 16px;
+    }
+    .card .card-content {
+      padding: 16px;
+      border-radius: 0 0 2px 2px;
+      background-clip: padding-box;
+      box-sizing: border-box;
+    }
+    .card .card-content p {
+      margin: 0;
+      color: inherit;
+    }
+    .card .card-content span.card-title {
+      line-height: 48px;
+    }
+    .card .card-action {
+      border-top: 1px solid rgba(160, 160, 160, 0.2);
+      padding: 16px;
+    }
+    .card .card-action a {
+      color: #fff;
+      margin-right: 16px;
+      transition: color 0.3s ease;
+      text-transform: uppercase;
+    }
+    .card .card-action a:hover {
+      color: #fafafa;
+      text-decoration: none;
+    }
+    </style>
+</head>
+<body>
+<div class="jumbotron">
+    <h1 style="color:#FFF">Experience API Example Charts</h1>
+</div>
+<div class="container">
+   <div class="row">
+        <div class="col-md-5 col-md-offset-1">
+            <div class="card">
+                <div class="card-image">
+                    <img class="img-responsive" src="images/iitsecDemoSmaller.png">
+                </div>
+
+                <div class="card-content">
+                    <p>VWS I/ITSEC Realtime Reports</p>
+                </div>
+
+                <div class="card-action">
+                    <a class="btn btn-primary" href="http://54.152.193.17/" target="new_blank">Launch</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 col-md-offset-1">
+            <div class="card">
+                <div class="card-image">
+                    <img class="img-responsive" src="images/adlLrsVizSmaller.png">
+                </div>
+
+                <div class="card-content">
+                    <p>Graph Visualization of the ADL LRS Data</p>
+                </div>
+
+                <div class="card-action">
+                    <a class="btn btn-primary" href="test01/index.html" target="new_blank">Launch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 col-md-offset-1">
+            <div class="card">
+                <div class="card-image">
+                    <img class="img-responsive" src="images/scorm.png">
+                </div>
+
+                <div class="card-content">
+                    <p>Data about activity in a SCORM course.</p>
+                </div>
+
+                <div class="card-action">
+                    <a class="btn btn-primary" href="https://creighton.github.io/itsec2014charts/coursechart.html" target="new_blank">Launch Course Chart</a><a class="btn btn-primary" href="https://creighton.github.io/itsec2014charts/jobaidchart.html" target="new_blank">Launch Job Aid Chart</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 col-md-offset-1">
+            <div class="card">
+                <div class="card-image">
+                    <img class="img-responsive" src="images/medical-min.jpg">
+                </div>
+
+                <div class="card-content">
+                    <p>Patient Encounter Use-Case</p>
+                </div>
+
+                <div class="card-action">
+                    <a class="btn btn-primary" href="http://creighton.github.io/patient-encounters-usecase/" target="new_blank">Launch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 col-md-offset-1">
+            <div class="card">
+                <div class="card-image">
+                    <img class="img-responsive" src="images/bootcamp-chart-min.png">
+                </div>
+
+                <div class="card-content">
+                    <p>xAPI Content Dev Demo</p>
+                </div>
+
+                <div class="card-action">
+                    <a class="btn btn-primary" href="http://creighton.github.io/Bootcamp-062015/" target="new_blank">Launch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</head>

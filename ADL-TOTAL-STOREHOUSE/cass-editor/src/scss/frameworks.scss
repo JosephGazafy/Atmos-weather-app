@@ -1,0 +1,202 @@
+@import './variables.scss';
+
+.framework-list-page {
+    .lode__Property {
+        padding: .125rem 0rem;
+    }
+    .show-only-mine {
+        display: none;
+    }
+    .page {
+        margin-top: 2rem;
+    }
+    .List {
+        .button {
+            display: none;
+        }
+        .list-ul {
+             li.list-ul__item {
+                    padding: .5rem;
+                    background-color: white;
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    .list-thing {
+                        width: calc(100% - 56px);
+                    }
+                    .lode__type {
+                        display: none;
+                    }
+                    .language {
+                        display: none;
+                    }
+                    .arrow-icon {
+                        visibility: hidden;
+                    }
+
+            }
+            li.list-ul__item:hover {
+                background-color: $cass-lightest;
+                .arrow-icon {
+                    visibility:visible;
+                }
+            }
+            .list-ul__item{
+                border-radius: $border-radius;
+                padding: .0rem .5rem .25rem .125rem;
+                margin-top: .5rem;
+                .framework-list-item__details {
+                    color: $text;
+                    font-weight: 300;
+                    font-size: $size-6;
+                    font-family: $family-primary;
+                    .details-label {
+                        font-weight: 600;
+                    }
+                }
+
+            }
+            .list-ul__item:hover {
+            }
+            .lode__thing {
+                .bottom-actions, .top-actions {
+                    display: none !important;
+                }
+                .lode__Framework, .lode__Concept, .lode__ConceptScheme, .lode__Concept {
+                    transform: translateX(0);
+                    cursor: pointer;
+                    font-weight: 600;
+                    font-size: 1rem;
+                    font-family: $family-secondary;
+                    .lode__Thing-ul {
+                        padding: 0rem .5rem;
+                        width: 100%;
+
+                    }
+
+                }
+            }
+        }
+    }
+     .lode__Framework,
+     .framework-list-page,
+     .lode__ConceptScheme,
+     .lode__Concept {
+        a {
+            display:none;
+        }
+        .icon {
+            display:none;
+        }
+        .editable {
+            display:inline;
+        }
+        .not-editable {
+            display:inline;
+        }
+        .field {
+            padding-left: 0;
+        }
+    }
+    .lode__name {
+        .field {
+            padding-left: 0;
+            display: inline-block;
+        }
+        .field:nth-of-type(n + 3) {
+            .field-body {
+                .field {
+                    padding-left: 0;
+                    &::before {
+                        content: ", ";
+                    }
+                }
+            }
+        }
+        .field:first-of-type{
+            display: block;
+            .field-body {
+                .field {
+                    display: block;
+                    font-weight: 500;
+                    font-family: $family-secondary;
+                    width: 100%;
+                    font-size: $size-3;
+                }
+            }
+        }
+
+
+
+        label {
+            display:none;
+        }
+        .lode__Property-ul{
+            border-radius: .25rem;
+            padding: 0rem .0rem;
+            font-size: .8rem;
+            margin: .125em 0em;
+
+            color: rgba($dark, .9);
+            .lode__description {
+                font-weight: 400;
+                font-size: $size-6;
+            }
+            .lode__name{
+                font-weight: 600;
+                font-size: $size-4;
+            }
+
+            label {
+                font-size: $size-6;
+                font-weight: 500;
+            }
+        }
+    }
+    .lode__description {
+        display: none;
+        .lode__Property-text  {
+            font-size: $size-6;
+        }
+        .lode__Property-ul {
+            margin: 0rem;
+        }
+    }
+}
+
+/* handles search */
+.lode__thing-editing, .lode__thing {
+    .List {
+        .list-ul {
+            .list-ul__item {
+                padding: .25rem;
+
+                .search-selection__icon,
+                .search-selection__add-icon
+                {
+                    float: right;
+                    right: 16px;
+                    display: flex;
+                    height: 100%;
+                    align-content: center;
+                    .icon {
+                        height: 100%;
+                        padding-right: 16px;
+                    }
+                }
+                .search-selection__add-icon {
+                    visibility: hidden;
+                }
+            }
+            .list-ul__item:hover {
+                background-color: rgba($light, .5);
+                .lode__Competency .search-selection__add-icon,
+                .lode__Level .search-selection__add-icon {
+                    visibility: visible !important;
+                }
+            }
+        }
+    }
+}
+

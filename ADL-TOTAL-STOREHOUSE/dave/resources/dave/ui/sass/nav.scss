@@ -1,0 +1,392 @@
+@import "dave/ui/sass/mdc.scss";
+@import "dave/ui/sass/buttons.scss";
+@import "@material/top-app-bar/_mixins";
+
+.wizardfooter{
+  background-color: #3C4967;
+}
+
+.dave-vega-container{
+  margin-bottom: 20px;
+}
+
+.title {
+  color: #4449A6;
+  margin-bottom: 0px;
+  font-size: 1em;
+}
+
+.doc{
+  margin: 0px 0px;
+}
+
+.workbook {
+  >  div h1 {
+    margin-left: 40px;
+    margin-bottom: 0px;
+    color: #353535;
+  }
+}
+
+.page {
+  > div h1 {
+    color: #353535;
+    margin-top: 40px;
+    margin-left: 25px;
+    margin-bottom: 21px;
+  }
+}
+
+.boxselection{
+  background-color: #FBFBFB;
+  transition-duration: .2s;
+  padding:20px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 14px -2px rgba(207,207,207,1);
+  -moz-box-shadow: 0px 0px 14px -2px rgba(207,207,207,1);
+  box-shadow: 0px 0px 14px -2px rgba(207,207,207,1);
+  /* Title is a link */
+  > h4 {
+    > a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+}
+
+.boxselection:hover{
+  transition-duration: .2s;
+  background-color: white;
+  -webkit-box-shadow: 6px 13px 37px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 6px 13px 37px 0px rgba(0,0,0,0.2);
+  box-shadow: 6px 13px 37px 0px rgba(0,0,0,0.2);
+}
+
+.splash h2{
+  margin-top: 0px;
+}
+
+.cardtitle {
+  color: #26A699;
+  font-size: 1em;
+  font-weight:400;
+}
+
+
+.topmenu{
+  background-color: #3C4967;
+  min-height: 64px;
+  display:flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-left: 30px;
+  > a{
+    text-decoration: none;
+    color: white;
+    font-size: 13px;
+    padding-right: 40px;
+    }
+    > a img {
+      height: 56px;
+      padding: 4px 0px 0px 0px;
+    }
+}
+
+header.top-bar {
+  min-height: 256px !important;
+  // @extend .mdc-top-app-bar;
+  @extend .mdc-top-app-bar--prominent;
+  background-color: rgba(255,255,255,0);
+  /*background-image: url("/img/dev/dave_logo.png");*/
+  background-repeat: no-repeat;
+  background-size: contain;
+  // @include mdc-top-app-bar-fill-color('red');
+  > div {
+    @extend .mdc-top-app-bar__row;
+    > section {
+      @extend .mdc-top-app-bar__section;
+      @extend .mdc-top-app-bar__section--align-start;
+    }
+  }
+}
+
+.menuimage img{
+  width: 100px;
+}
+
+ul.top-bar-links {
+  list-style-type: none;
+  > li {
+    display: inline-block;
+    padding: 0 .5em 0 .5em;
+    > a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+}
+
+div.app-description {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 2em;
+  text-align: right;
+  max-width: 25em;
+  > h2.title {
+  color: white;
+  }
+  > p.description {
+    font-size: 13px;
+    color: #2E2E2E;
+  }
+  > button{
+    padding: 7px 80px;
+    border-radius: 20px;
+    background-color: #4449A6;
+    color:white;
+    font-size: 15px;
+    font-weight:lighter;
+    border:none;
+    -webkit-box-shadow: 0px 4px 16px -3px rgba(0,0,0,0.35);
+    -moz-box-shadow: 0px 4px 16px -3px rgba(0,0,0,0.35);
+    box-shadow: 0px 4px 16px -3px rgba(0,0,0,0.35);
+    transition-duration: .1s;
+  }
+  > button:active{
+    -webkit-box-shadow: 0px 4px 16px -3px rgba(0,0,0,0);
+    -moz-box-shadow: 0px 4px 16px -3px rgba(0,0,0,0);
+    box-shadow: 0px 4px 16px -3px rgba(0,0,0,0);
+    transition-duration: .1s;
+  }
+}
+
+@import "@material/layout-grid/_mixins";
+@import "@material/card/_mixins";
+
+
+
+.breadcrumbs {
+    /* the top crumb element */
+  @include mdc-layout-grid('desktop', 8px);
+  > div {
+    /* the breadcrumbs inner div */
+    @include mdc-layout-grid-inner('desktop', 4px, 2px);
+    /* all breadcrumbs, inner styling */
+    > div {
+      @include mdc-layout-grid-cell('desktop', 2, 2px);
+      @extend .mdc-card;
+      border-radius: 10px;
+      transition-duration: .2s;
+
+      > a {
+        min-height: 0px;
+        text-decoration: none;
+        color: black; // TODO: ink color var
+        .title {
+          font-weight: 400;
+          padding:10px;
+          background-color: #2A58CD;
+          color:#ffffff;
+          border-radius: 5px 5px 5px 5px;
+          white-space:   nowrap;
+          overflow:      hidden;
+          text-overflow: ellipsis;
+        }
+        .text{
+          padding: 10px;
+          color:#373737;
+          font-size: .9em;
+        }
+      }
+    }
+    > div:hover {
+      -webkit-box-shadow: 0px 0px 37px 0px rgba(0,0,0,0.2);
+      -moz-box-shadow: 0px 0px 37px 0px rgba(0,0,0,0.2);
+      box-shadow: 0px 0px 37px 0px rgba(0,0,0,0.2);
+    }
+    /* the active breadcrumb (that matches current context) */
+    > div.active {
+      @include mdc-layout-grid-cell('desktop', 8, 2px);
+    }
+    /* the breadcrumbs to the right of the active one can't really do anything, so we should indicate that visually */
+    div.active ~ div {
+      > a {
+        .title {
+          background-color: #3C4967;
+        }
+      }
+    }
+    div.active ~ div:hover {
+      box-shadow: unset;
+      -webkit-box-shadow: unset;
+      -moz-box-shadow: unset;
+    }
+  }
+}
+
+/* TODO: move this workbook/chart specific stuff out of nav */
+ .chartimage img {
+  height: 100px;
+  display:inline-block;
+}
+
+.workbookinfo.visualizationpage{
+  margin-left: 0px;
+}
+
+.testdatasetblock{
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 20px -2px rgba(189,189,189,1);
+  -moz-box-shadow: 0px 0px 20px -2px rgba(189,189,189,1);
+  box-shadow: 0px 0px 20px -2px rgba(189,189,189,1);
+  background-color: #FBFBFB;
+  padding-left: 20px;
+  > .hometitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: .5em;
+    color: #353535;
+  }
+}
+
+.workbookinfo{
+  transition-duration: .2s;
+  margin-left: 2em;
+  background-color: #FBFBFB;
+  padding-left: 20px;
+  padding-top: 0px;
+  padding-bottom: .5em;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 20px -2px rgba(189,189,189,1);
+  -moz-box-shadow: 0px 0px 20px -2px rgba(189,189,189,1);
+  box-shadow: 0px 0px 20px -2px rgba(189,189,189,1);
+  >.sectiontitle {
+    color: #26A699;
+    margin-bottom: 0px;
+  }
+  > .hometitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: .5em;
+    color: #353535;
+    > a{
+      text-decoration: none;
+      color: #353535;
+      > a{
+        text-decoration: none;
+        color: #353535;
+      }
+    }
+    > .workbookdesc{
+      font-size: 1em;
+    }
+
+  }
+}
+
+
+.workbookinfo:hover{
+  transform: translateY(-10px);
+  transition-duration: .2s;
+  background-color: white;
+  -webkit-box-shadow: 6px 13px 37px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 6px 13px 37px 0px rgba(0,0,0,0.2);
+  box-shadow: 6px 13px 37px 0px rgba(0,0,0,0.2);
+}
+
+div.descendant-counts {
+  > .tag {
+    background-color: #9E44A6;
+    border-radius: 2px;
+    color:white;
+    max-width: 160px;
+    font-size: .9em;
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    > p{
+      padding-left:8px;
+      padding-right: 8px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+  }
+  > .visualtag{
+    background-color: #189366;
+  }
+}
+
+.dave-app {
+  display:        flex;
+  flex-direction: column;
+  height:         100vh;
+  > .dave-app-body {
+    flex: 1 0 auto;
+  }
+}
+
+.dave-app > footer {
+  flex-shrink: 0;
+  height: 80px;
+  width: 100%;
+  background-color:#3C4967 ;
+  background-size: contain;
+  flex-wrap: wrap;
+  display:flex;
+  align-items: center;
+  -webkit-box-shadow: 0px -11px 30px -16px rgba(66,66,66,0.93);
+  -moz-box-shadow: 0px -11px 30px -16px rgba(66,66,66,0.93);
+  box-shadow: 0px -11px 30px -16px rgba(66,66,66,0.53);
+  > a {
+    text-decoration: none;
+    color:           white;
+    > img {
+      height:50px;
+      margin-left: 30px;
+      padding: 10px 0px 10px 0px;
+    }
+  }
+}
+
+  .quick-guide{
+
+    max-width: 50%;
+    margin-left: 2em;
+    > .heading-text{
+      background-color:#2A58CD;
+      color:white;
+      font-weight: 400;
+      padding:10px;
+    }
+    > .detail-text{
+        font-size: 13px;
+      padding: 1em;
+    }
+  }
+
+.data{
+  > h3.title {
+    color:#4449A6;
+    text-transform: capitalize;
+    margin-bottom: 0px;
+    > button {
+      margin-left: 16px;
+    }
+  }
+  > .details dt{
+    color: teal;
+    font-weight: bold;
+      }
+  > .details dd {
+
+    display:inline;
+    margin-left: 5px;
+    margin-right: 40px;
+    }
+}
+
+/* Set the snackbar to z-index 9, the dialog is 7, the picker is 8 */
+.dave-snackbar {
+  z-index: 9 !important;
+}

@@ -1,0 +1,7 @@
+[submodule "elrrserviceentities"]
+	path = elrrserviceentities
+	url = https://github.com/US-ELRR/elrrserviceentities.git
+[submodule "elrrservices"]
+	path = elrrservices
+	url = https://github.com/US-ELRR/elrrservices.git
+	branch = dev-update-base

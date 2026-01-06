@@ -1,0 +1,340 @@
+package com.deloitte.elrr.aggregator.rules;
+
+import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.deloitte.elrr.aggregator.utils.ExtensionsUtil;
+import com.deloitte.elrr.aggregator.utils.LangMapUtil;
+import com.deloitte.elrr.elrraggregator.exception.AggregatorException;
+import com.deloitte.elrr.entity.Credential;
+import com.deloitte.elrr.entity.Person;
+import com.deloitte.elrr.entity.PersonalCredential;
+import com.deloitte.elrr.jpa.svc.CredentialSvc;
+import com.deloitte.elrr.jpa.svc.PersonSvc;
+import com.deloitte.elrr.jpa.svc.PersonalCredentialSvc;
+import com.yetanalytics.xapi.model.Activity;
+import com.yetanalytics.xapi.model.Context;
+import com.yetanalytics.xapi.model.Statement;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Component
+@Slf4j
+public class ProcessCredential implements Rule {
+
+    @Autowired
+    private CredentialSvc credentialService;
+
+    @Autowired
+    private PersonalCredentialSvc personalCredentialService;
+
+    @Autowired
+    private LangMapUtil langMapUtil;
+
+    @Autowired
+    private ExtensionsUtil extensionsUtil;
+
+    @Autowired
+    private PersonSvc personService;
+
+    private static final String CREDENTIAL_MESSAGE = "Credential";
+
+    /**
+     * @param statement
+     * @return boolean
+     */
+    @Override
+    public boolean fireRule(final Statement statement) {
+
+        // If not an activity
+        if (!(statement.getObject() instanceof Activity)) {
+            return false;
+        }
+
+        String objType = null;
+
+        Activity obj = (Activity) statement.getObject();
+
+        if (obj.getDefinition().getType() != null) {
+            objType = obj.getDefinition().getType().toString();
+        }
+
+        // Is Verb Id = achieved and object type = credential
+        return (statement.getVerb().getId().toString().equalsIgnoreCase(
+                VerbIdConstants.ACHIEVED_VERB_ID.toString()) && objType
+                        .equalsIgnoreCase(ObjectTypeConstants.CREDENTIAL));
+
+    }
+
+    /**
+     * @param person
+     * @param statement
+     * @throws AggregatorException
+     */
+    @Override
+    @Transactional
+    public Person processRule(final Person person, final Statement statement)
+            throws AggregatorException {
+
+        log.debug("Process credential.");
+
+        // Get Activity
+        Activity activity = (Activity) statement.getObject();
+
+        // Get expires
+        ZonedDateTime expires = extensionsUtil.getExtensionValue(statement
+                .getContext(), ExtensionsConstants.CONTEXT_EXTENSION_EXPIRES,
+                ZonedDateTime.class);
+
+        // Process Credential
+        Credential credential = processCredential(activity, expires);
+
+        // Process PersonalCredential
+        processPersonalCredential(person, credential, expires);
+
+        return person;
+    }
+
+    /**
+     * @param activity
+     * @param endDate
+     * @return credential
+     * @throws AggregatorException
+     */
+    private Credential processCredential(final Activity activity,
+            final ZonedDateTime endDate) throws AggregatorException {
+
+        Credential credential = null;
+
+        // Get credential
+        credential = credentialService.findByIdentifier(activity.getId()
+                .toString());
+
+        // If credential doesn't exist
+        if (credential == null) {
+
+            credential = createCredential(activity, endDate);
+            log.debug(CREDENTIAL_MESSAGE + " " + credential.getIdentifier()
+                    + " created.");
+
+        } else {
+
+            credential = updateCredential(credential, activity, endDate);
+            log.debug(CREDENTIAL_MESSAGE + " " + credential.getIdentifier()
+                    + " updated.");
+
+        }
+
+        return credential;
+    }
+
+    /**
+     * @param context
+     * @return credential
+     * @throws AggregatorException
+     * @throws URISyntaxException
+     */
+    public List<Credential> processAssignedCredentials(final Context context)
+            throws AggregatorException, URISyntaxException {
+
+        log.debug("Process assigned credentials.");
+
+        List<Credential> credentials = new ArrayList<Credential>();
+
+        // Get Activities
+        List<Activity> activities = context.getContextActivities().getOther();
+
+        for (Activity activity : activities) {
+
+            // If Credential
+            if (activity.getDefinition().getType().equals(
+                    ContextActivityTypeConstants.OTHER_CRED_URI)) {
+
+                Credential credential = credentialService.findByIdentifier(
+                        activity.getId().toString());
+
+                // If Credential already exists
+                if (credential != null) {
+
+                    log.debug(CREDENTIAL_MESSAGE + " " + credential
+                            .getIdentifier() + " already exists.");
+
+                    // If Credential doesn't exist
+                } else {
+
+                    credential = createCredential(activity, null);
+                    credentials.add(credential);
+
+                    log.debug(CREDENTIAL_MESSAGE + " " + credential
+                            .getIdentifier() + " created.");
+
+                }
+
+            }
+
+        }
+
+        return credentials;
+    }
+
+    /**
+     * @param activity
+     * @param endDate
+     * @return credential
+     * @throws AggregatorException
+     */
+    private Credential createCredential(final Activity activity,
+            final ZonedDateTime endDate) throws AggregatorException {
+
+        Credential credential = null;
+        String activityName = "";
+        String activityDescription = "";
+
+        activityName = langMapUtil.getLangMapValue(activity.getDefinition()
+                .getName());
+        activityDescription = langMapUtil.getLangMapValue(activity
+                .getDefinition().getDescription());
+
+        credential = new Credential();
+        credential.setIdentifier(activity.getId().toString());
+        credential.setFrameworkTitle(activityName);
+        credential.setFrameworkDescription(activityDescription);
+        credential.setValidEndDate(endDate);
+        credentialService.save(credential);
+
+        return credential;
+    }
+
+    /**
+     * @param credential
+     * @param activity
+     * @param endDate
+     * @return credential
+     * @throws AggregatorException
+     */
+    public Credential updateCredential(Credential credential,
+            final Activity activity, final ZonedDateTime endDate)
+            throws AggregatorException {
+
+        String activityName = "";
+        String activityDescription = "";
+
+        activityName = langMapUtil.getLangMapValue(activity.getDefinition()
+                .getName());
+        activityDescription = langMapUtil.getLangMapValue(activity
+                .getDefinition().getDescription());
+
+        credential.setFrameworkTitle(activityName);
+        credential.setFrameworkDescription(activityDescription);
+        credential.setValidEndDate(endDate);
+        credentialService.update(credential);
+
+        return credential;
+    }
+
+    /**
+     * @param person
+     * @param credential
+     * @param expires
+     * @return PersonalCredential
+     */
+    private PersonalCredential processPersonalCredential(Person person,
+            final Credential credential, final ZonedDateTime expires) {
+
+        PersonalCredential personalCredential = null;
+
+        try {
+
+            // Get PersonalCredential
+            personalCredential = personalCredentialService
+                    .findByPersonIdAndCredentialId(person.getId(), credential
+                            .getId());
+
+            // If PersonalCredential doesn't exist
+            if (personalCredential == null) {
+
+                personalCredential = createPersonalCredential(person,
+                        credential, expires);
+
+                if (person.getCredentials() == null) {
+                    person.setCredentials(new HashSet<PersonalCredential>());
+                }
+
+                person.getCredentials().add(personalCredential);
+                personService.save(person);
+
+                log.info("Personal Credential for " + person.getName() + " - "
+                        + personalCredential.getCredential().getFrameworkTitle()
+                        + " created.");
+
+            } else {
+
+                personalCredential = updatePersonalCredential(
+                        personalCredential, person, expires);
+
+                log.info("Personal Credential for " + person.getName() + " - "
+                        + personalCredential.getCredential().getFrameworkTitle()
+                        + " updated.");
+
+            }
+
+        } catch (DateTimeParseException e) {
+            log.error("Error invalid expires date", e);
+            throw new AggregatorException("Error invalid expires date.", e);
+        }
+
+        return personalCredential;
+    }
+
+    /**
+     * @param person
+     * @param credential
+     * @param expires
+     * @return personalCredential
+     */
+    private PersonalCredential createPersonalCredential(final Person person,
+            final Credential credential, final ZonedDateTime expires) {
+
+        PersonalCredential personalCredential = new PersonalCredential();
+
+        personalCredential.setPerson(person);
+        personalCredential.setCredential(credential);
+        personalCredential.setHasRecord(true);
+
+        if (expires != null) {
+            personalCredential.setExpires(expires);
+        }
+
+        personalCredentialService.save(personalCredential);
+
+        return personalCredential;
+    }
+
+    /**
+     * @param personalCredential
+     * @param person
+     * @param expires
+     * @return PersonalCredential
+     */
+    public PersonalCredential updatePersonalCredential(
+            PersonalCredential personalCredential, final Person person,
+            final ZonedDateTime expires) {
+
+        if (expires != null) {
+
+            personalCredential.setExpires(expires);
+            personalCredentialService.update(personalCredential);
+
+        }
+
+        return personalCredential;
+    }
+}

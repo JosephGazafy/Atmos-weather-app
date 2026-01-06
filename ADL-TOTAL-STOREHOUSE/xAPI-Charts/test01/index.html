@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="./0.4.1/styles/vendor.css">
+    <link rel="stylesheet" href="./0.4.1/alchemy.css">
+    <script type="text/javascript" src="./0.4.1/scripts/vendor.js"></script>
+    <script type="text/javascript" src="./0.4.1/alchemy.js"></script>
+<!--    <script type="text/javascript" src="./lib/xapiwrapper.min.js"></script>-->
+   <script type="text/javascript" src="./src/cryptojs_v3.1.2.js"></script>
+   <script type="text/javascript" src="./src/verbs.js"></script>
+   <script type="text/javascript" src="./src/xapistatement.js"></script>
+   <script type="text/javascript" src="./src/xapiwrapper.js"></script>
+    <script>
+        var conf = {
+          "endpoint" : "https://lrs.adlnet.gov/xapi/",
+          "user" : "tom",
+          "password" : "1234",
+        };
+        ADL.XAPIWrapper.changeConfig(conf);
+    </script>
+    <style>
+        body {
+            background-color: #101010
+        }
+        #loadingimg {
+            border: 2px solid;
+            display: block;
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .node text {
+
+        }
+    </style>
+</head>
+<body>
+    <div id="alchemy" class="alchemy"></div>
+
+    <script>
+        $('#alchemy').append('<div id="loading"><img id="loadingimg" src="./img/loading.gif"> <h1 style="color: #f4f4f4; text-align: center">Loading<h1></div>');
+
+        var stmts = [],
+            iterations = 5;
+        ADL.XAPIWrapper.getStatements(null,null, function getMore(r) {
+            if (iterations-- <= 0) drawStuff(getConf(getData(stmts)));
+            else {
+                if (! (r && r.response) ) return;
+                var res = JSON.parse(r.response);
+                if (! res.statements) return;
+                stmts = stmts.concat(res.statements);
+                if (res.more && res.more !== "") {
+                    ADL.XAPIWrapper.getStatements(null, res.more, getMore);
+                }
+            }
+        });
+
+        var ditto = false;
+        var getData = function (thestmts) {
+            if (ditto) {
+                console.log('called again');
+                return;
+            }
+            ditto = true;
+            var data = {nodes:[], edges:[]},
+                nodeset = {};
+
+            try {
+                thestmts.forEach(function (cur, idx, arr) {
+                    var actor = setActorNode(cur.actor, nodeset, cur);
+                    var verb = setVerbNode(cur.verb, nodeset, cur);
+                    var obj = setObjectNode(cur.object, nodeset, cur);
+                    setEdges(actor, verb, obj, data);
+                });
+            } catch (e) {
+                console.log(e);
+            }
+
+//            console.log(nodeset);
+            for (var n in nodeset) { data.nodes.push(nodeset[n]); }
+
+//            console.log(data);
+            return data;
+        };
+
+        var createNode = function (ns, caption, type, stmtid) {
+            return {
+                'id': Object.keys(ns).length,
+                'caption': caption,
+                'type': type,
+                'stmtid': stmtid
+            };
+        };
+
+        var setActorNode = function (a, ns, s) {
+            var auuid = getActorId(a);
+            if (ns[auuid] !== undefined) return ns[auuid]; // a already in ns
+            ns[auuid] = createNode(ns, getActorName(a), 'actor', s.id);
+            return ns[auuid];
+        };
+
+        var getActorName = function (a) {
+            return a.name || getActorId(a);
+        };
+
+        var getActorId = function (a) {
+//            console.log(JSON.stringify(a));
+            return a.mbox || a.openid || a.mbox_sha1sum || a.account.name || "blah";
+        };
+
+        var setVerbNode = function (v, ns, s) {
+            var vuuid = v.id;
+            if (ns[vuuid] !== undefined) return ns[vuuid];
+            ns[vuuid] = createNode(ns, getVerbDisplay(v), 'verb', s.id);
+            return ns[vuuid];
+        };
+
+        var getVerbDisplay = function (v) {
+            if (v && v.display) return v.display['en-US'] || v.id;
+            return v.id;
+        };
+
+        var setObjectNode = function (o, ns, s) {
+            var ouuid = o.id || getActorId(o);
+            if (ns[ouuid] !== undefined) return ns[ouuid];
+            ns[ouuid] = createNode(ns, getObjectName(o), (o.objectType === "Agent" || o.objectType === "Group") ? 'actor' : 'object', s.id);
+            return ns[ouuid];
+        };
+
+        var getObjectName = function (o) {
+            if (! o.definition ) {
+//                console.log('yipes', o);
+            }
+            return getObjDefName(o) || o.name || o.id || getActorId(o);
+        };
+
+        var getObjDefName = function (o) {
+//            console.log(o);
+            if (o.definition && o.definition.name) {
+                return o.definition.name['en-US'];
+            }
+            return undefined;
+        };
+
+        var setEdges = function (a, v, o, data) {
+            data.edges.push({'source':a.id, 'target':v.id});
+            data.edges.push({'source':o.id, 'target':v.id});
+        };
+
+        var getConf = function (data) {
+            return {
+//                'graphHeight': function () { return 600; },
+//                'graphWidth': function () { return 1250; },
+                'dataSource':data,
+//                'nodeCaption': function (node) { return node.label }  // this is fancy way
+                'nodeTypes': { 'type': ['actor', 'verb', 'object'] },
+                'nodeStyle': {
+                    'actor': {
+                        'color': '#880000'
+                    },
+                    'verb': {
+                        'color': '#008800'
+                    },
+                    'object': {
+                        'color': '#000088'
+                    }
+                }
+            };
+        };
+
+        var drawStuff = function (conf) {
+            $('#alchemy').empty();
+            stmts = [];
+            alchemy.begin(conf);
+        };
+    </script>
+</body>
+</html>

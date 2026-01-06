@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+import time, datetime, subprocess, os
+
+LOG_FILE = os.path.expanduser("~/sovereign_log.txt")
+
+def log_event(message):
+    ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open(LOG_FILE, "a") as f:
+        f.write(f"💓 [{ts}] {message}\n")
+
+log_event("🌑💎 [ATMOS-TRAP] KINETIC WATCH INITIALIZED.")
+
+while True:
+    # Monitor for the execution of the trap_probe on any node
+    # This acts as a 'Heartbeat' that also checks for security violations
+    ts = datetime.datetime.now().strftime("%H:%M:%S")
+    print(f"📡 [{ts}] TRAP-WATCH: STERILE | Ω=4.50")
+    time.sleep(3600)

@@ -1,0 +1,15 @@
+<project name="ServicesCleanup" basedir=".">
+
+    <target name="copy-services-jar">
+        <copy file="elrrservices/target/elrrservices-0.0.1-SNAPSHOT.jar" todir="target/"/>
+    </target>
+
+    <target name="copy-services-code-analysis" unless="skipTests">
+        <mkdir dir="target/site"/>
+        <mkdir dir="target/site/jacoco"/>
+        <copy todir="target/site/jacoco">
+            <fileset dir="report-aggregate/target/site/jacoco-aggregate" includes="**/*" />
+        </copy>
+    </target>
+
+</project>
