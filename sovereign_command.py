@@ -5,37 +5,50 @@ import os
 import datetime
 from scipy.optimize import fsolve
 
-# Atmos-Engine: Sovereign Command & Fail-Safe Audio (v137.0)
+# Atmos-Engine: Momentum-Aware Sovereign Command (v145.0)
 
-def alert_physical(caliber, map_link):
-    # Physical Audio Fail-Safe
-    os.system("termux-beep -f 800 -d 500") # High-Frequency Warning
-    os.system(f"termux-tts-speak 'Detonation Detected. {caliber}. Origin logged.'")
-    print(f"\n[!!!] ALERT: {caliber}")
-    print(f"[MAP] {map_link}")
+class SovereignCore:
+    def __init__(self):
+        self.intensity = 0.0  # Hawkes Intensity λ(t)
+        self.mu = 0.1         # Background noise rate
+        self.last_time = time.time()
 
-def log_incident(caliber, lat, lon, map_link):
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    log_entry = f"[{timestamp}] DETONATION: {caliber} | LOC: {lat:.4f}, {lon:.4f} | LINK: {map_link}\n"
-    with open("sovereign_incident_log.txt", "a") as f:
-        f.write(log_entry)
+    def update_momentum(self, event_triggered):
+        now = time.time()
+        dt = now - self.last_time
+        # Exponential decay of past threat momentum
+        self.intensity = self.mu + (self.intensity - self.mu) * np.exp(-0.5 * dt)
+        if event_triggered:
+            self.intensity += 2.0  # Excitation jump
+        self.last_time = now
+        return self.intensity
 
-# ... [Triangulation and Classification logic remains bit-perfect] ...
+SC = SovereignCore()
+
+def alert_momentum(intensity):
+    if intensity > 5.0:
+        os.system("termux-tts-speak 'Warning. Threat momentum rising. Intensity at level ' " + str(round(intensity, 1)))
+    elif intensity > 10.0:
+        os.system("termux-beep -f 1000 -d 1000")
+        os.system("termux-tts-speak 'CRITICAL BLITZ DETECTED. Engaging Total Lockdown.'")
+
+# ... [Classification and Triangulation logic remain bit-perfect] ...
 
 def run_command_center():
-    print("--- [VIGIL-MODE ACTIVE] ---")
+    print("--- [VIGIL-MODE: MOMENTUM-LINK ACTIVE] ---")
     while True:
-        audio_buffer = np.random.normal(0, 0.1, 22050) # Buffer Monitor
+        audio_buffer = np.random.normal(0, 0.1, 22050)
         caliber = classify_impulse(audio_buffer)
+        
+        # Update Hawkes Intensity every cycle
+        current_λ = SC.update_momentum(True if caliber else False)
         
         if caliber:
             res = triangulate([0.001, 0.002, 0.003])
-            map_url = generate_map_link(res[0], res[1])
-            log_incident(caliber, res[0], res[1], map_url)
-            alert_physical(caliber, map_url) # Trigger Fail-Safe
+            alert_momentum(current_λ)
+            print(f"\n[!!!] INTENSITY SPIKE: {current_λ:.2f} | {caliber}")
         else:
-            # Minimalist Vigil Pulse
-            print(f"Lattice [●] $65,737.61 BIT-PERFECT | QED Verified", end="\r")
+            print(f"Lattice [●] $65,737.61 | Momentum λ: {current_λ:.2f}", end="\r")
         time.sleep(1)
 
 if __name__ == "__main__":
