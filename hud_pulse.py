@@ -6,12 +6,14 @@ def animate_jitter():
     try:
         while True:
             jitter = "".join(random.choice(bars) for _ in range(12))
-            eeg = f"{random.randint(40,49)}.{random.randint(10,99)}"
-            # 4.2 One-Purpose Test: Syntactic Acuity
+            # LINE 1: FIELD (Fleet Drift)
             sys.stdout.write("\033[4A")
-            sys.stdout.write(f"\r  \033[1;36m📡 FIELD:\033[0m    [MATCH: NOMINAL] [dB: 12] \033[K\n")
-            sys.stdout.write(f"\r  \033[1;35m🧠 ACUITY:\033[0m   [SPARKLER: {eeg}] \033[K\n")
-            sys.stdout.write(f"\r  \033[1;31m🪃 BLOWBACK:\033[0m [RST: ARMED] [SAFE] \033[K\n")
+            sys.stdout.write(f"\r  \033[1;36m📡 FLEET:\033[0m    [NODES: 11] [DRIFT: 0.00] \033[K\n")
+            # LINE 2: ACUITY (Efficiency)
+            sys.stdout.write(f"\r  \033[1;35m🧠 ACUITY:\033[0m   [η: 0.98] [M_t: LOW-PASS] \033[K\n")
+            # LINE 3: BLOWBACK (OIDC Security)
+            sys.stdout.write(f"\r  \033[1;31m🪃 BLOWBACK:\033[0m [RST: ARMED] [OIDC: SECURE] \033[K\n")
+            # LINE 4: JOULE (Energy)
             sys.stdout.write(f"\r  \033[1;33m⚡ JOULE:\033[0m    [{jitter}] [r:0.00] \033[K\n")
             sys.stdout.flush()
             time.sleep(0.08)
