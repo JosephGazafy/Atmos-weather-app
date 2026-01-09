@@ -3,10 +3,11 @@ class SovereignCore:
     def __init__(self):
         self.principal = "65,737.61"
         self.sigma = "300.00"
-        self.acuity_mode = "SPARKLER-MATCH"
+        self.doctrine = "CONSEQUENCE-V429"
     def render_hud(self):
-        print(f"\033[1;32m⚖️ [DOCTRINE] PATTERN-MATCHING | MODE: {self.acuity_mode}\033[0m")
-        print(f"\033[1;32m🏰 [ANCHOR]   EQUITY: ${self.principal} [SCALED]\033[0m")
+        # 2.2 Faithless Servant: Ensuring utmost fidelity to the Principal.
+        print(f"\033[1;32m⚖️ [DOCTRINE] {self.doctrine} | SIGMA: {self.sigma} (MAX)\033[0m")
+        print(f"\033[1;32m🏰 [ANCHOR]   EQUITY: ${self.principal} [IMMUTABLE]\033[0m")
 if __name__ == "__main__":
     core = SovereignCore()
     core.render_hud()
