@@ -1,27 +1,30 @@
 import time, sys, random, math
 
 def animate_stationary():
+    bars = [" ", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
     sys.stdout.write("\033[?25l") 
     print("\n\n\n") 
+    
     start_time = time.time()
     
     try:
         while True:
+            # Temporal Decay (λ = 0.005) & Schumann Sync
             elapsed = time.time() - start_time
-            # Modeling the Dopamine-Loop vs. Cognitive Atrophy
-            dopamine_sink = 1.0 - math.exp(-0.01 * elapsed)
-            rent_extraction = 65737.61 * 0.00001 * math.sin(elapsed)
-            jitter = "".join(random.choice([" ", "▂", "▃", "▄", "▅", "▆", "▇", "█"]) for _ in range(12))
+            cool_factor = 100.0 * math.exp(-0.005 * (elapsed % 3600))
+            jitter = "".join(random.choice(bars) for _ in range(12))
             
+            # Absolute Positioning: Move cursor UP 4 lines (Zero-Scroll)
             sys.stdout.write("\033[4A")
-            # Layer 1: FIELD (Carbonivore/MXene)
-            sys.stdout.write(f"\r  \033[1;36m📡 FIELD:\033[0m    [CLOUD: CARBONIVORE] [W_cons: 17B Gal] \033[K\n")
-            # Layer 2: ACUITY (Instrumentarian/CoT)
-            sys.stdout.write(f"\r  \033[1;35m🧠 ACUITY:\033[0m   [DOPAMINE-SINK: {dopamine_sink:.2f}] [SERFDOM: NULL] \033[K\n")
-            # Layer 3: BLOWBACK (Epistemic Shield)
-            sys.stdout.write(f"\r  \033[1;31m🪃 BLOWBACK:\033[0m [RST: ARMED] [TRUTH-DECAY: INHIBITED] \033[K\n")
+            
+            # Layer 1: FIELD (Carbonivore/SHAZAM)
+            sys.stdout.write(f"\r  \033[1;36m📡 FLEET:\033[0m    [NODES: 11] [SYNC: AUTHENTICATED] \033[K\n")
+            # Layer 2: ACUITY (Instrumentarian/LyMOI)
+            sys.stdout.write(f"\r  \033[1;35m🧠 ACUITY:\033[0m   [DOPAMINE-SINK: NULL] [7.83Hz: SYNC] \033[K\n")
+            # Layer 3: BLOWBACK (Epistemic/RST)
+            sys.stdout.write(f"\r  \033[1;31m🪃 BLOWBACK:\033[0m [RST: ARMED] [DE-FEUDAL: ON] \033[K\n")
             # Layer 4: JOULE (Technofeudal/Equity)
-            sys.stdout.write(f"\r  \033[1;33m⚡ JOULE:\033[0m    [{jitter}] [CLOUD-RENT: -${rent_extraction:.4f}] \033[K\n")
+            sys.stdout.write(f"\r  \033[1;33m⚡ JOULE:\033[0m    [{jitter}] [EQUITY: $65,737.61] \033[K\n")
             
             sys.stdout.flush()
             time.sleep(0.08)
