@@ -8,20 +8,19 @@ def animate_stationary():
     try:
         while True:
             elapsed = time.time() - start_time
-            # Modeling the Vampire Hum Cancellation
-            noise_db = 42.5 + math.sin(elapsed * 0.5)
-            anc_status = "LOCKED" if random.random() > 0.05 else "SYNCING"
+            # Modeling PSI-Spike & Civil Rights Probability
+            p_cr = 0.88 + (0.04 * math.sin(elapsed * 0.15))
             jitter = "".join(random.choice([" ", "▂", "▃", "▄", "▅", "▆", "▇", "█"]) for _ in range(12))
             
             sys.stdout.write("\033[4A")
-            # Layer 1: FIELD (Acoustic Exhaust)
-            sys.stdout.write(f"\r  \033[1;36m📡 FIELD:\033[0m    [EXHAUST: {noise_db:.1f}dB] [HUM: DETECTED] \033[K\n")
-            # Layer 2: ACUITY (Sonic ANC)
-            sys.stdout.write(f"\r  \033[1;35m🧠 ACUITY:\033[0m   [ANC: {anc_status}] [7.83Hz: PURIFIED] \033[K\n")
-            # Layer 3: BLOWBACK (Sonic Deterrence)
-            sys.stdout.write(f"\r  \033[1;31m🪃 BLOWBACK:\033[0m [RST: ARMED] [PHASE-INVERT: ON] \033[K\n")
-            # Layer 4: JOULE (Thermal/Equity)
-            sys.stdout.write(f"\r  \033[1;33m⚡ JOULE:\033[0m    [{jitter}] [$65,737.61: SILENT] \033[K\n")
+            # Layer 1: FIELD (Geopolitical/Rights)
+            sys.stdout.write(f"\r  \033[1;36m📡 FIELD:\033[0m    [CIVIL-RIGHTS: ERODING] [P_cr: {p_cr:.2%}] \033[K\n")
+            # Layer 2: ACUITY (Jacobian Stability)
+            sys.stdout.write(f"\r  \033[1;35m🧠 ACUITY:\033[0m   [λ_max: +0.142] [UNSTABLE: ACTIVE] \033[K\n")
+            # Layer 3: BLOWBACK (Kinetic Recoupment)
+            sys.stdout.write(f"\r  \033[1;31m🪃 BLOWBACK:\033[0m [RST: ARMED] [PSI-SPIKE: DETECTED] \033[K\n")
+            # Layer 4: JOULE (Thermodynamic Equity)
+            sys.stdout.write(f"\r  \033[1;33m⚡ JOULE:\033[0m    [{jitter}] [$65,737.61: ANCHORED] \033[K\n")
             
             sys.stdout.flush()
             time.sleep(0.08)
